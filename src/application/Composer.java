@@ -20,15 +20,17 @@ public class Composer {
 		this.deathYear = deathYear;
 		count++;
 		this.id = count;
+		addToComposerList(this);
 	}
 	public Composer() {
-		this.firstName = "unknown";
-		this.secondName = "unknown";
-		this.lastName = "unknown";
+		this.firstName = "";
+		this.secondName = "";
+		this.lastName = "";
 		this.birthYear = 0;
 		this.deathYear = 0;
 		count++;
 		this.id = count;
+		addToComposerList(this);
 	}
 	
 	public String getFirstName() {
@@ -75,7 +77,7 @@ public class Composer {
 		return id;
 	}
 	
-	public void addToComposerList(Composer composer) {
+	public static void addToComposerList(Composer composer) {
 		if(checkComposerList(composer)) {
 			System.out.println("Komponist bereits vorhanden");
 		}else {
@@ -84,13 +86,12 @@ public class Composer {
 		
 	}
 	
-	public boolean checkComposerList(Composer composer) {
-		for (Composer element : composerList) {
+	public static boolean checkComposerList(Composer composer) {
+		for(Composer element : composerList) {
 			//String name = composerList.get(i).getFullName();
 			if(composer.getFullName().equals(element.getFullName())) {
 				return true;
 			}
-			return false;
 		}
 		return false;
 	}

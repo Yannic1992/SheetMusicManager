@@ -21,7 +21,13 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
-		launch(args);
+		//launch(args);
+		Composer bach = new Composer("Johann", "Sebastian", "Bach", 1675, 1750);
+		Composition toccata = new Composition(bach, "Toccata und Fugue", "Druck", 1700);
+		Composition test = new Composition();
+		System.out.println(toccata.toString());
+		System.out.println(test.toString());
+		
 	}
 
 	
