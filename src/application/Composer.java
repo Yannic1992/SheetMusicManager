@@ -1,5 +1,7 @@
 package application;
 
+import java.util.ArrayList;
+
 public class Composer {
 	private String firstName;
 	private String secondName;
@@ -8,9 +10,9 @@ public class Composer {
 	private int deathYear;
 	private int id;
 	private static int count=0;
+	private static ArrayList<Composer> composerList = new ArrayList<>();
 	
 	public Composer(String firstName, String secondName, String lastName, int birthYear, int deathYear) {
-		super();
 		this.firstName = firstName;
 		this.secondName = secondName;
 		this.lastName = lastName;
@@ -20,7 +22,6 @@ public class Composer {
 		this.id = count;
 	}
 	public Composer() {
-		super();
 		this.firstName = "unknown";
 		this.secondName = "unknown";
 		this.lastName = "unknown";
@@ -72,5 +73,25 @@ public class Composer {
 	}
 	public int getId() {
 		return id;
+	}
+	
+	public void addToComposerList(Composer composer) {
+		if(checkComposerList(composer)) {
+			System.out.println("Komponist bereits vorhanden");
+		}else {
+			composerList.add(composer);
+		}
+		
+	}
+	
+	public boolean checkComposerList(Composer composer) {
+		for (Composer element : composerList) {
+			//String name = composerList.get(i).getFullName();
+			if(composer.getFullName().equals(element.getFullName())) {
+				return true;
+			}
+			return false;
+		}
+		return false;
 	}
 }

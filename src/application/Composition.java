@@ -9,7 +9,7 @@ public class Composition {
 	private static int count=0;
 	
 	public Composition(Composer composer, String title, String dataFormat, int year) {
-		super();
+		composer.addToComposerList(composer);
 		this.composer = composer;
 		this.title = title;
 		this.dataFormat = dataFormat;
@@ -19,7 +19,6 @@ public class Composition {
 	}
 	
 	public Composition() {
-		super();
 		this.composer.setFirstName("unknown");
 		this.composer.setSecondName("unknown");
 		this.composer.setLastName("unknown");
