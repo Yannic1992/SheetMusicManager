@@ -2,7 +2,11 @@ package application;
 
 import java.util.ArrayList;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+
 public class Composition {
+	@FXML
 	private Composer composer;
 	private String title;
 	private String dataFormat; // in which format is the sheet music available i.e. printed or as pdf
@@ -18,6 +22,7 @@ public class Composition {
 		this.year = year;
 		count++;
 		this.id = count;
+		addToCompositionList(this);
 	}
 	
 	public Composition() {
@@ -26,6 +31,7 @@ public class Composition {
 		this.year = 0;
 		count++;
 		this.id = count;
+		addToCompositionList(this);
 	}
 	public Composer getComposer() {
 		return composer;
@@ -64,7 +70,6 @@ public class Composition {
 		String titleOutput;
 		String yearOutput;
 		String dataFormatOutput;
-		String idOutput;
 		if(composer == null) {
 			composerOutput = "Unbekannt";
 			//return "Composer: Nicht vorhanden" + "\n" + "Title: " + title + "\n" + "Year: " + year + "\n" +
@@ -90,6 +95,22 @@ public class Composition {
 		}
 		return "Composer: " + composerOutput + "\n" + "Title: " + titleOutput + "\n" + "Year: " + yearOutput + "\n" +
 				"Data Format: " + dataFormatOutput + "\n" + "ID: " + id + "\n";
+	}
+	
+	public static void addToCompositionList(Composition composition) {
+		compositionList.add(composition);
+	}
+	
+	public static String compositionListToString() {
+		String output = "";
+		for(int i = 0; i<compositionList.size(); i++) {
+			output = output + compositionList.get(i).toString() + "\n";
+		}
+			
+		return output;
+	}
+	public void add(ActionEvent e) {
+		addToCompositionList(this);
 	}
 }
 

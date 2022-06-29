@@ -2,7 +2,10 @@ package application;
 
 import java.util.ArrayList;
 
+import javafx.fxml.FXML;
+
 public class Composer {
+	@FXML
 	private String firstName;
 	private String secondName;
 	private String lastName;
