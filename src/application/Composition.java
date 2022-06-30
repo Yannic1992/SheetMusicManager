@@ -1,9 +1,6 @@
 package application;
 
-import javafx.fxml.FXML;
-
 public class Composition {
-	@FXML
 	private Composer composer;
 	private String title;
 	private String dataFormat; // in which format is the sheet music available i.e. printed or as pdf
