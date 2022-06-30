@@ -77,7 +77,7 @@ public class Composition {
 		if(year == "") {
 			yearOutput = "Unbekannt";
 		} else {
-			yearOutput = String.valueOf(year);
+			yearOutput = year;
 		}
 		if(dataFormat == "") {
 			dataFormatOutput = "Unbekannt";
