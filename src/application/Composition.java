@@ -1,8 +1,5 @@
 package application;
 
-import java.util.ArrayList;
-
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 public class Composition {
@@ -10,28 +7,26 @@ public class Composition {
 	private Composer composer;
 	private String title;
 	private String dataFormat; // in which format is the sheet music available i.e. printed or as pdf
-	private int year;
+	private String year;
 	private int id;
 	private static int count=0;
-	private static ArrayList<Composition> compositionList = new ArrayList<>();
 	
-	public Composition(Composer composer, String title, String dataFormat, int year) {
+	
+	public Composition(Composer composer, String title, String year, String dataFormat) {
 		this.composer = composer;
 		this.title = title;
-		this.dataFormat = dataFormat;
 		this.year = year;
+		this.dataFormat = dataFormat;
 		count++;
 		this.id = count;
-		addToCompositionList(this);
 	}
 	
 	public Composition() {
 		this.title = "";
 		this.dataFormat = "";
-		this.year = 0;
+		this.year = "";
 		count++;
 		this.id = count;
-		addToCompositionList(this);
 	}
 	public Composer getComposer() {
 		return composer;
@@ -53,10 +48,10 @@ public class Composition {
 	public void setDataFormat(String dataFormat) {
 		this.dataFormat = dataFormat;
 	}
-	public int getYear() {
+	public String getYear() {
 		return year;
 	}
-	public void setYear(int year) {
+	public void setYear(String year) {
 		this.year = year;
 	}
 	public static int getCount() {
@@ -82,7 +77,7 @@ public class Composition {
 		} else {
 			titleOutput = title;
 		}
-		if(year == 0) {
+		if(year == "") {
 			yearOutput = "Unbekannt";
 		} else {
 			yearOutput = String.valueOf(year);
@@ -97,20 +92,7 @@ public class Composition {
 				"Data Format: " + dataFormatOutput + "\n" + "ID: " + id + "\n";
 	}
 	
-	public static void addToCompositionList(Composition composition) {
-		compositionList.add(composition);
-	}
 	
-	public static String compositionListToString() {
-		String output = "";
-		for(int i = 0; i<compositionList.size(); i++) {
-			output = output + compositionList.get(i).toString() + "\n";
-		}
-			
-		return output;
-	}
-	public void add(ActionEvent e) {
-		addToCompositionList(this);
-	}
+	
 }
 

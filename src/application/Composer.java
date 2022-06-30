@@ -1,7 +1,5 @@
 package application;
 
-import java.util.ArrayList;
-
 import javafx.fxml.FXML;
 
 public class Composer {
@@ -9,13 +7,13 @@ public class Composer {
 	private String firstName;
 	private String secondName;
 	private String lastName;
-	private int birthYear;
-	private int deathYear;
+	private String birthYear;
+	private String deathYear;
 	private int id;
 	private static int count=0;
-	private static ArrayList<Composer> composerList = new ArrayList<>();
 	
-	public Composer(String firstName, String secondName, String lastName, int birthYear, int deathYear) {
+	
+	public Composer(String firstName, String secondName, String lastName, String birthYear, String deathYear) {
 		this.firstName = firstName;
 		this.secondName = secondName;
 		this.lastName = lastName;
@@ -23,17 +21,15 @@ public class Composer {
 		this.deathYear = deathYear;
 		count++;
 		this.id = count;
-		addToComposerList(this);
 	}
 	public Composer() {
 		this.firstName = "";
 		this.secondName = "";
 		this.lastName = "";
-		this.birthYear = 0;
-		this.deathYear = 0;
+		this.birthYear = "";
+		this.deathYear = "";
 		count++;
 		this.id = count;
-		addToComposerList(this);
 	}
 	
 	public String getFirstName() {
@@ -61,16 +57,16 @@ public class Composer {
 			return this.firstName + " " + this.secondName + " " + this.lastName;
 		}
 	}
-	public int getBirthYear() {
+	public String getBirthYear() {
 		return birthYear;
 	}
-	public void setBirthYear(int birthYear) {
+	public void setBirthYear(String birthYear) {
 		this.birthYear = birthYear;
 	}
-	public int getDeathYear() {
+	public String getDeathYear() {
 		return deathYear;
 	}
-	public void setDeathYear(int deathYear) {
+	public void setDeathYear(String deathYear) {
 		this.deathYear = deathYear;
 	}
 	public String getComposer() {
@@ -80,22 +76,5 @@ public class Composer {
 		return id;
 	}
 	
-	public static void addToComposerList(Composer composer) {
-		if(checkComposerList(composer)) {
-			System.out.println("Komponist bereits vorhanden");
-		}else {
-			composerList.add(composer);
-		}
-		
-	}
 	
-	public static boolean checkComposerList(Composer composer) {
-		for(Composer element : composerList) {
-			//String name = composerList.get(i).getFullName();
-			if(composer.getFullName().equals(element.getFullName())) {
-				return true;
-			}
-		}
-		return false;
-	}
 }
