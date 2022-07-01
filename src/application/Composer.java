@@ -7,6 +7,7 @@ public class Composer {
 	private String birthYear;
 	private String deathYear;
 	private int id;
+	private static int nextId;
 	private static int count=0;
 	
 	
@@ -16,8 +17,6 @@ public class Composer {
 		this.lastName = lastName;
 		this.birthYear = birthYear;
 		this.deathYear = deathYear;
-		count++;
-		this.id = count;
 	}
 	public Composer() {
 		this.firstName = "";
@@ -25,8 +24,6 @@ public class Composer {
 		this.lastName = "";
 		this.birthYear = "";
 		this.deathYear = "";
-		count++;
-		this.id = count;
 	}
 	
 	public String getFirstName() {
@@ -69,9 +66,20 @@ public class Composer {
 	public String getComposer() {
 		return getFullName() + " (" + birthYear + "-" + deathYear + ")";
 	}
-	public int getId() {
-		return id;
+	public int getNextId() {
+		return ++nextId;
 	}
-	
+	public int getId() {
+		return this.id;
+	}
+	public void setId(int i) {
+		this.id = i;
+	}
+	public static int getCount() {
+		return count;
+	}
+	public static void setCount(int i) {
+		count = i;
+	}
 	
 }

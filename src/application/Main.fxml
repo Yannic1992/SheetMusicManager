@@ -29,9 +29,10 @@
       <TextField fx:id="dataFormatOfComposition" layoutX="194.0" layoutY="120.0" prefHeight="25.0" prefWidth="66.0" />
       <Button fx:id="addComposition" layoutX="274.0" layoutY="120.0" mnemonicParsing="false" onAction="#add" text="Hinzufügen" />
       <Label layoutX="16.0" layoutY="153.0" text="Kompositionen:" />
-      <TextArea fx:id="compositionTA" layoutX="16.0" layoutY="174.0" prefHeight="200.0" prefWidth="300.0" />
-      <Label layoutX="389.0" layoutY="14.0" text="Komponistenliste:" />
-      <ListView fx:id="composerListLV" layoutX="389.0" layoutY="33.0" prefHeight="323.0" prefWidth="200.0" />
+      <TextArea fx:id="compositionTA" layoutX="16.0" layoutY="174.0" prefHeight="200.0" prefWidth="327.0" />
+      <Label layoutX="359.0" layoutY="14.0" text="Komponistenliste:" />
+      <ListView fx:id="composerListLV" layoutX="359.0" layoutY="33.0" prefHeight="323.0" prefWidth="230.0" />
       <Button layoutX="523.0" layoutY="362.0" mnemonicParsing="false" text="Beenden" />
+      <Label fx:id="composerCount" layoutX="517.0" layoutY="14.0" prefHeight="17.0" prefWidth="72.0" text="Anzahl: " />
    </children>
 </AnchorPane>

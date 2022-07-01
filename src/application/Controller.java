@@ -10,6 +10,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -35,9 +36,14 @@ public class Controller implements Initializable {
 	@FXML
 	private TextArea compositionTA;
 	@FXML
+	private Label composerCount;
+	@FXML
 	private ListView<String> composerListLV;
 	
+	// Hilfsvariablen
 	private int selectedComposerInListView;
+	private static String tempComposerFullName;
+	//private boolean isComposerInList;
 	
 	private static ArrayList<Composer> composerList = new ArrayList<>();
 	private static ArrayList<Composition> compositionList = new ArrayList<>();
@@ -51,15 +57,17 @@ public class Controller implements Initializable {
 		Composition composition = new Composition(titleOfComposition.getText(), 
 								yearOfComposition.getText(), dataFormatOfComposition.getText());
 		
-		for(Composer element : composerList) {
-			if(composer.getFullName().equals(element.getFullName())) {
-				composition.setComposer(element);
-			}
-		}
-		if(!checkComposerList(composer)) {
+		Composer tempComposer = checkComposerList(composer);
+		
+		if(tempComposer == null) {
+			composer.setId(composer.getNextId());
 			composition.setComposer(composer);
+			addToComposerList(composer);
+			Composer.setCount(composerList.size());
+			composerCount.setText("Anzahl: " + Composer.getCount());
+		} else {
+			composition.setComposer(tempComposer);
 		}
-		addToComposerList(composer);
 		
 		initialize(null, null);
 		
@@ -80,7 +88,7 @@ public class Controller implements Initializable {
 	}
 	
 	public static void addToComposerList(Composer composer) {
-		if(checkComposerList(composer)) {
+		if(checkComposerList(composer) != null) {
 			System.out.println("Komponist bereits vorhanden");
 		}else {
 			composerList.add(composer);
@@ -88,14 +96,15 @@ public class Controller implements Initializable {
 		
 	}
 	
-	public static boolean checkComposerList(Composer composer) {
+	public static Composer checkComposerList(Composer composer) {
+		tempComposerFullName = composer.getFullName();
 		for(Composer element : composerList) {
 			//String name = composerList.get(i).getFullName();
-			if(composer.getFullName().equals(element.getFullName())) {
-				return true;
+			if(tempComposerFullName.equals(element.getFullName())) {
+				return element;
 			}
 		}
-		return false;
+		return null;
 	}
 	
 	public static void addToCompositionList(Composition composition) {
@@ -127,11 +136,13 @@ public class Controller implements Initializable {
 				
 				selectedComposerInListView = composerListLV.getSelectionModel().getSelectedIndex();
 				
-				firstName.setText(composerList.get(selectedComposerInListView).getFirstName());
-				secondName.setText(composerList.get(selectedComposerInListView).getSecondName());
-				lastName.setText(composerList.get(selectedComposerInListView).getLastName());
-				birthYear.setText(composerList.get(selectedComposerInListView).getBirthYear());
-				deathYear.setText(composerList.get(selectedComposerInListView).getDeathYear());
+				if (selectedComposerInListView != -1) {
+					firstName.setText(composerList.get(selectedComposerInListView).getFirstName());
+					secondName.setText(composerList.get(selectedComposerInListView).getSecondName());
+					lastName.setText(composerList.get(selectedComposerInListView).getLastName());
+					birthYear.setText(composerList.get(selectedComposerInListView).getBirthYear());
+					deathYear.setText(composerList.get(selectedComposerInListView).getDeathYear());
+				}
 				
 				
 			}
