@@ -1,14 +1,20 @@
 package application;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
-public class Controller {
+public class Controller implements Initializable {
 	@FXML
 	private TextField firstName;
 	@FXML
@@ -28,6 +34,10 @@ public class Controller {
 	//private Button addComposition;
 	@FXML
 	private TextArea compositionTA;
+	@FXML
+	private ListView<String> composerListLV;
+	
+	private int selectedComposerInListView;
 	
 	private static ArrayList<Composer> composerList = new ArrayList<>();
 	private static ArrayList<Composition> compositionList = new ArrayList<>();
@@ -36,10 +46,23 @@ public class Controller {
 				
 		Composer composer = new Composer(firstName.getText(), secondName.getText(), lastName.getText(), 
 							birthYear.getText(), deathYear.getText());
+		
+		
+		Composition composition = new Composition(titleOfComposition.getText(), 
+								yearOfComposition.getText(), dataFormatOfComposition.getText());
+		
+		for(Composer element : composerList) {
+			if(composer.getFullName().equals(element.getFullName())) {
+				composition.setComposer(element);
+			}
+		}
+		if(!checkComposerList(composer)) {
+			composition.setComposer(composer);
+		}
 		addToComposerList(composer);
 		
-		Composition composition = new Composition(composer, titleOfComposition.getText(), 
-								yearOfComposition.getText(), dataFormatOfComposition.getText());
+		initialize(null, null);
+		
 		addToCompositionList(composition);
 		
 		compositionTA.setText(compositionList.toString());
@@ -86,6 +109,34 @@ public class Controller {
 		}
 			
 		return output;
+	}
+
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		String[] tempComposerList = new String[composerList.size()];
+		for(int i = 0; i<composerList.size(); i++) {
+			tempComposerList[i] = composerList.get(i).getComposer();
+		}
+		
+		composerListLV.getItems().clear();
+		composerListLV.getItems().addAll(tempComposerList);
+		
+		composerListLV.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
+				
+				selectedComposerInListView = composerListLV.getSelectionModel().getSelectedIndex();
+				
+				firstName.setText(composerList.get(selectedComposerInListView).getFirstName());
+				secondName.setText(composerList.get(selectedComposerInListView).getSecondName());
+				lastName.setText(composerList.get(selectedComposerInListView).getLastName());
+				birthYear.setText(composerList.get(selectedComposerInListView).getBirthYear());
+				deathYear.setText(composerList.get(selectedComposerInListView).getDeathYear());
+				
+				
+			}
+			
+		});
 	}
 	
 

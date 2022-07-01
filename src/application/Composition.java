@@ -9,8 +9,7 @@ public class Composition {
 	private static int count=0;
 	
 	
-	public Composition(Composer composer, String title, String year, String dataFormat) {
-		this.composer = composer;
+	public Composition(String title, String year, String dataFormat) {
 		this.title = title;
 		this.year = year;
 		this.dataFormat = dataFormat;
@@ -62,6 +61,7 @@ public class Composition {
 		String titleOutput;
 		String yearOutput;
 		String dataFormatOutput;
+		String composerID;
 		if(composer == null) {
 			composerOutput = "Unbekannt";
 			//return "Composer: Nicht vorhanden" + "\n" + "Title: " + title + "\n" + "Year: " + year + "\n" +
@@ -85,7 +85,7 @@ public class Composition {
 		else {
 			dataFormatOutput = dataFormat;
 		}
-		return "Composer: " + composerOutput + "\n" + "Title: " + titleOutput + "\n" + "Year: " + yearOutput + "\n" +
+		return "Composer: " + composerOutput + "\n" + "Composer-ID: " + String.valueOf(composer.getId()) + "\n" + "Title: " + titleOutput + "\n" + "Year: " + yearOutput + "\n" +
 				"Data Format: " + dataFormatOutput + "\n" + "ID: " + id + "\n";
 	}
 	
