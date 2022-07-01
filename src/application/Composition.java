@@ -1,12 +1,27 @@
 package application;
 
-public class Composition {
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Composition implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Composer composer;
 	private String title;
 	private String dataFormat; // in which format is the sheet music available i.e. printed or as pdf
 	private String year;
 	private int id;
 	private static int count=0;
+	
+	private static ArrayList<Composition> compositionList = new ArrayList<>();
 	
 	
 	public Composition(String title, String year, String dataFormat) {
@@ -61,11 +76,8 @@ public class Composition {
 		String titleOutput;
 		String yearOutput;
 		String dataFormatOutput;
-		String composerID;
 		if(composer == null) {
 			composerOutput = "Unbekannt";
-			//return "Composer: Nicht vorhanden" + "\n" + "Title: " + title + "\n" + "Year: " + year + "\n" +
-				//	"Data Format: " + dataFormat + "\n" + "ID: " + id + "\n";
 		} else {
 			 composerOutput = composer.getComposer();
 		} 
@@ -85,10 +97,56 @@ public class Composition {
 		else {
 			dataFormatOutput = dataFormat;
 		}
-		return "Composer: " + composerOutput + "\n" + "Composer-ID: " + String.valueOf(composer.getId()) + "\n" + "Title: " + titleOutput + "\n" + "Year: " + yearOutput + "\n" +
+		return "Composer: " + composerOutput + "\n" + "Composer-ID: " + String.valueOf(composer.getId()) + 
+				"\n" + "Title: " + titleOutput + "\n" + "Year: " + yearOutput + "\n" +
 				"Data Format: " + dataFormatOutput + "\n" + "ID: " + id + "\n";
 	}
+	public static ArrayList<Composition> getCompositionList() {
+		return compositionList;
+	}
+	public static void setCompositionList(ArrayList<Composition> c) {
+		compositionList = c;
+	}
+	public static void writeIntoFile(ArrayList<Composition> list) {
+		 try {
+	         FileOutputStream fileOut =
+	         new FileOutputStream("src/application/ComposerList.ser", false);
+	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
+	         out.writeObject(list);
+	         out.close();
+	         fileOut.close();
+	         System.out.println("Serialized data is saved in src/application/ComposerList.ser");
+	      } catch (IOException i) {
+	         i.printStackTrace();
+	      }
+	}
 	
+	@SuppressWarnings("unchecked")
+	public static void readFile() {
+	      try {
+	         FileInputStream fileIn = new FileInputStream("src/application/ComposerList.ser");
+	         ObjectInputStream in = new ObjectInputStream(fileIn);
+	         compositionList = (ArrayList<Composition>) in.readObject();
+	         in.close();
+	         fileIn.close();
+	    	 System.out.println("File found");
+	    	 for(int i = 0; i<compositionList.size(); i++) {
+	    		 Controller.addToComposerList(compositionList.get(i).getComposer());
+	    	 }
+	    	 Composer.setNextId();
+	    	 System.out.println("Set next ID for Composer: " + Composer.getNextId());
+	      }catch (FileNotFoundException f) {
+	    	  System.out.println("File not found");
+	    	  return;
+	      }catch (IOException i) {
+	         System.out.println("Test");
+	    	 return;
+	      }catch (ClassNotFoundException c) {
+	    	 System.out.println("Composer class not found");
+	         c.printStackTrace();
+	         return;
+	      }
+	}
 	
 	
 }

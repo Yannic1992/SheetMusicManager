@@ -2,7 +2,6 @@ package application;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -43,10 +42,7 @@ public class Controller implements Initializable {
 	// Hilfsvariablen
 	private int selectedComposerInListView;
 	private static String tempComposerFullName;
-	//private boolean isComposerInList;
 	
-	private static ArrayList<Composer> composerList = new ArrayList<>();
-	private static ArrayList<Composition> compositionList = new ArrayList<>();
 	
 	public void add(ActionEvent e) throws IOException {
 				
@@ -59,12 +55,11 @@ public class Controller implements Initializable {
 		
 		Composer tempComposer = checkComposerList(composer);
 		
-		if(tempComposer == null) {
-			composer.setId(composer.getNextId());
+		if(tempComposer == null) { //When true, then composer not in composer list
+			Composer.setNextId();
+			composer.setId(Composer.getNextId());
 			composition.setComposer(composer);
 			addToComposerList(composer);
-			Composer.setCount(composerList.size());
-			composerCount.setText("Anzahl: " + Composer.getCount());
 		} else {
 			composition.setComposer(tempComposer);
 		}
@@ -73,7 +68,7 @@ public class Controller implements Initializable {
 		
 		addToCompositionList(composition);
 		
-		compositionTA.setText(compositionList.toString());
+		compositionTA.setText(Composition.getCompositionList().toString());
 		
 		firstName.clear();
 		firstName.requestFocus();
@@ -85,21 +80,22 @@ public class Controller implements Initializable {
 		yearOfComposition.clear();
 		dataFormatOfComposition.clear();
 		
+		Composition.writeIntoFile(Composition.getCompositionList());
+		
 	}
 	
 	public static void addToComposerList(Composer composer) {
 		if(checkComposerList(composer) != null) {
 			System.out.println("Komponist bereits vorhanden");
 		}else {
-			composerList.add(composer);
+			Composer.getComposerList().add(composer);
 		}
 		
 	}
 	
 	public static Composer checkComposerList(Composer composer) {
 		tempComposerFullName = composer.getFullName();
-		for(Composer element : composerList) {
-			//String name = composerList.get(i).getFullName();
+		for(Composer element : Composer.getComposerList()) {
 			if(tempComposerFullName.equals(element.getFullName())) {
 				return element;
 			}
@@ -108,13 +104,13 @@ public class Controller implements Initializable {
 	}
 	
 	public static void addToCompositionList(Composition composition) {
-		compositionList.add(composition);
+		Composition.getCompositionList().add(composition);
 	}
 	
 	public static String compositionListToString() {
 		String output = "";
-		for(int i = 0; i<compositionList.size(); i++) {
-			output = output + compositionList.get(i).toString() + "\n";
+		for(int i = 0; i<Composition.getCompositionList().size(); i++) {
+			output = output + Composition.getCompositionList().get(i).toString() + "\n";
 		}
 			
 		return output;
@@ -122,13 +118,16 @@ public class Controller implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		String[] tempComposerList = new String[composerList.size()];
-		for(int i = 0; i<composerList.size(); i++) {
-			tempComposerList[i] = composerList.get(i).getComposer();
+		String[] tempComposerList = new String[Composer.getComposerList().size()];
+		for(int i = 0; i<Composer.getComposerList().size(); i++) {
+			tempComposerList[i] = Composer.getComposerList().get(i).getComposer();
 		}
 		
 		composerListLV.getItems().clear();
 		composerListLV.getItems().addAll(tempComposerList);
+		System.out.println("Refreshed composer list");
+		composerCount.setText("Anzahl: " + Composer.getComposerList().size());
+		System.out.println("Refreshed composer number");
 		
 		composerListLV.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
@@ -137,11 +136,11 @@ public class Controller implements Initializable {
 				selectedComposerInListView = composerListLV.getSelectionModel().getSelectedIndex();
 				
 				if (selectedComposerInListView != -1) {
-					firstName.setText(composerList.get(selectedComposerInListView).getFirstName());
-					secondName.setText(composerList.get(selectedComposerInListView).getSecondName());
-					lastName.setText(composerList.get(selectedComposerInListView).getLastName());
-					birthYear.setText(composerList.get(selectedComposerInListView).getBirthYear());
-					deathYear.setText(composerList.get(selectedComposerInListView).getDeathYear());
+					firstName.setText(Composer.getComposerList().get(selectedComposerInListView).getFirstName());
+					secondName.setText(Composer.getComposerList().get(selectedComposerInListView).getSecondName());
+					lastName.setText(Composer.getComposerList().get(selectedComposerInListView).getLastName());
+					birthYear.setText(Composer.getComposerList().get(selectedComposerInListView).getBirthYear());
+					deathYear.setText(Composer.getComposerList().get(selectedComposerInListView).getDeathYear());
 				}
 				
 				
@@ -150,5 +149,5 @@ public class Controller implements Initializable {
 		});
 	}
 	
-
+	
 }

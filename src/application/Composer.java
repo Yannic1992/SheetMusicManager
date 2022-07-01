@@ -1,14 +1,23 @@
 package application;
 
-public class Composer {
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Composer implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String firstName;
 	private String secondName;
 	private String lastName;
 	private String birthYear;
 	private String deathYear;
 	private int id;
-	private static int nextId;
+	private static int nextId = 1;
 	private static int count=0;
+	
+	private static ArrayList<Composer> composerList = new ArrayList<>();
 	
 	
 	public Composer(String firstName, String secondName, String lastName, String birthYear, String deathYear) {
@@ -66,8 +75,11 @@ public class Composer {
 	public String getComposer() {
 		return getFullName() + " (" + birthYear + "-" + deathYear + ")";
 	}
-	public int getNextId() {
-		return ++nextId;
+	public static int getNextId() {
+		return nextId;
+	}
+	public static void setNextId() {
+		nextId = getComposerList().get(composerList.size()-1).getId()+1;
 	}
 	public int getId() {
 		return this.id;
@@ -81,5 +93,14 @@ public class Composer {
 	public static void setCount(int i) {
 		count = i;
 	}
-	
+	public static void startProgramNextId() {
+		
+	}
+	public static ArrayList<Composer> getComposerList() {
+		return composerList;
+	}
+	public static void setComposerList(ArrayList<Composer> c) {
+		composerList = c;
+	}
+		
 }
