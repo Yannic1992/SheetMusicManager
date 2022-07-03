@@ -15,7 +15,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 public class Controller implements Initializable {
 	@FXML
@@ -136,9 +135,7 @@ public class Controller implements Initializable {
 		composerCount.setText("Anzahl: " + Composer.getComposerList().size());
 		System.out.println("Refreshed composer number");
 		
-		compTableLastName = new TableColumn<>("Nachname");
-		compTableLastName.setCellValueFactory(
-		    new PropertyValueFactory<>("lastName"));
+		
 		
 		composerListLV.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
