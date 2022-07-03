@@ -11,13 +11,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 
 public class Controller implements Initializable {
+	
 	@FXML
 	private TextField firstName;
 	@FXML
@@ -34,22 +32,16 @@ public class Controller implements Initializable {
 	private TextField yearOfComposition;
 	@FXML
 	private TextField dataFormatOfComposition;
-	//private Button addComposition;
+	@FXML
+	private Label compositionCount;
 	@FXML
 	private TextArea compositionTA;
 	@FXML
 	private Label composerCount;
 	@FXML
 	private ListView<String> composerListLV;
-	@FXML
-	private TableView<Composition> composerTable;
-	@FXML
-	private TableColumn<Composition, Composer> compTableLastName;
 	
-	// Hilfsvariablen
 	private int selectedComposerInListView;
-	private static String tempComposerFullName;
-	
 	
 	public void add(ActionEvent e) throws IOException {
 				
@@ -60,22 +52,18 @@ public class Controller implements Initializable {
 		Composition composition = new Composition(titleOfComposition.getText(), 
 								yearOfComposition.getText(), dataFormatOfComposition.getText());
 		
-		Composer tempComposer = checkComposerList(composer);
+		Composer tempComposer = Composer.checkComposerList(composer);
 		
 		if(tempComposer == null) { //When true, then composer not in composer list
-			Composer.setNextId();
-			composer.setId(Composer.getNextId());
 			composition.setComposer(composer);
-			addToComposerList(composer);
+			Composer.addToComposerList(composer);
 		} else {
 			composition.setComposer(tempComposer);
 		}
 		
+		Composition.addToCompositionList(composition);
+		
 		initialize(null, null);
-		
-		addToCompositionList(composition);
-		
-		compositionTA.setText(Composition.getCompositionList().toString());
 		
 		firstName.clear();
 		firstName.requestFocus();
@@ -88,57 +76,24 @@ public class Controller implements Initializable {
 		dataFormatOfComposition.clear();
 		
 		Composition.writeIntoFile(Composition.getCompositionList());
-		
 	}
-	
-	public static void addToComposerList(Composer composer) {
-		if(checkComposerList(composer) != null) {
-			System.out.println("Komponist bereits vorhanden");
-		}else {
-			Composer.getComposerList().add(composer);
-		}
-		
-	}
-	
-	public static Composer checkComposerList(Composer composer) {
-		tempComposerFullName = composer.getFullName();
-		for(Composer element : Composer.getComposerList()) {
-			if(tempComposerFullName.equals(element.getFullName())) {
-				return element;
-			}
-		}
-		return null;
-	}
-	
-	public static void addToCompositionList(Composition composition) {
-		Composition.getCompositionList().add(composition);
-	}
-	
-	public static String compositionListToString() {
-		String output = "";
-		for(int i = 0; i<Composition.getCompositionList().size(); i++) {
-			output = output + Composition.getCompositionList().get(i).toString() + "\n";
-		}
-			
-		return output;
-	}
-
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		String[] tempComposerList = new String[Composer.getComposerList().size()];
 		for(int i = 0; i<Composer.getComposerList().size(); i++) {
-			tempComposerList[i] = Composer.getComposerList().get(i).getComposer();
+			tempComposerList[i] = Composer.getComposerList().get(i).getComposerWithAge();
 		}
 		
 		composerListLV.getItems().clear();
+		System.out.println("Cleared GUI composer list");
 		composerListLV.getItems().addAll(tempComposerList);
-		System.out.println("Refreshed composer list");
+		System.out.println("Refreshed GUI composer list");
 		composerCount.setText("Anzahl: " + Composer.getComposerList().size());
-		System.out.println("Refreshed composer number");
-		
-		compTableLastName = new TableColumn<>("Nachname");
-		compTableLastName.setCellValueFactory(
-		    new PropertyValueFactory<>("lastName"));
+		System.out.println("Refreshed label for number of composers");
+		compositionCount.setText("Anzahl: " + Composition.getCount());
+		System.out.println("Refreshed label for number of compositions");
+		compositionTA.setText(Composition.getCompositionList().toString());
+		System.out.println("Refreshed composition text area");
 		
 		composerListLV.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override

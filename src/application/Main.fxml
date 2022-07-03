@@ -3,8 +3,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -29,23 +27,13 @@
       <TextField fx:id="yearOfComposition" layoutX="142.0" layoutY="120.0" prefHeight="25.0" prefWidth="40.0" />
       <Label layoutX="194.0" layoutY="103.0" text="Dateiformat:" />
       <TextField fx:id="dataFormatOfComposition" layoutX="194.0" layoutY="120.0" prefHeight="25.0" prefWidth="66.0" />
-      <Button fx:id="addComposition" layoutX="275.0" layoutY="120.0" mnemonicParsing="false" onAction="#add" text="Hinzufügen" />
+      <Button layoutX="275.0" layoutY="120.0" mnemonicParsing="false" onAction="#add" text="Hinzufügen" />
       <Button layoutX="356.0" layoutY="120.0" mnemonicParsing="false" text="Bearbeiten" />
       <Label layoutX="16.0" layoutY="153.0" text="Kompositionen:" />
       <Label fx:id="compositionCount" layoutX="357.0" layoutY="153.0" prefHeight="17.0" prefWidth="72.0" text="Anzahl: " />
-      <TextArea fx:id="compositionTA" layoutX="16.0" layoutY="174.0" prefHeight="200.0" prefWidth="327.0" />
+      <TextArea fx:id="compositionTA" layoutX="16.0" layoutY="174.0" prefHeight="312.0" prefWidth="413.0" />
       <Label layoutX="440.0" layoutY="14.0" text="Komponistenliste:" />
-      <ListView fx:id="composerListLV" layoutX="440.0" layoutY="35.0" prefHeight="451.0" prefWidth="246.0" />
       <Label fx:id="composerCount" layoutX="614.0" layoutY="14.0" prefHeight="17.0" prefWidth="72.0" text="Anzahl: " />
-      <TableView fx:id="composerTable" layoutX="14.0" layoutY="174.0" prefHeight="312.0" prefWidth="415.0">
-        <columns>
-          <TableColumn fx:id="compTableLastName" prefWidth="75.0" text="Nachname" />
-          <TableColumn fx:id="compTableFirstName" prefWidth="75.0" text="Vorname" />
-          <TableColumn fx:id="compTableSecondName" prefWidth="75.0" text="Zweitname" />
-          <TableColumn fx:id="compTableTitle" prefWidth="75.0" text="Titel" />
-          <TableColumn fx:id="compTableYear" prefWidth="40.0" text="Jahr" />
-          <TableColumn fx:id="compTableFormat" prefWidth="75.0" text="Dateiformat" />
-        </columns>
-      </TableView>
+      <ListView fx:id="composerListLV" layoutX="440.0" layoutY="35.0" prefHeight="451.0" prefWidth="246.0" />
    </children>
 </AnchorPane>

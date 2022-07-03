@@ -4,21 +4,18 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Composer implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+	
+	private static final long serialVersionUID = 4980234L;
 	private String firstName;
 	private String secondName;
 	private String lastName;
 	private String birthYear;
 	private String deathYear;
 	private int id;
-	private static int nextId = 1;
-	private static int count=0;
+	private static transient int count=0;
+	private static transient String tempComposerFullName;
 	
 	private static ArrayList<Composer> composerList = new ArrayList<>();
-	
 	
 	public Composer(String firstName, String secondName, String lastName, String birthYear, String deathYear) {
 		this.firstName = firstName;
@@ -26,15 +23,10 @@ public class Composer implements Serializable {
 		this.lastName = lastName;
 		this.birthYear = birthYear;
 		this.deathYear = deathYear;
+		count++;
+		this.id = count;
 	}
-	public Composer() {
-		this.firstName = "";
-		this.secondName = "";
-		this.lastName = "";
-		this.birthYear = "";
-		this.deathYear = "";
-	}
-	
+		
 	public String getFirstName() {
 		return firstName;
 	}
@@ -72,14 +64,8 @@ public class Composer implements Serializable {
 	public void setDeathYear(String deathYear) {
 		this.deathYear = deathYear;
 	}
-	public String getComposer() {
+	public String getComposerWithAge() {
 		return getFullName() + " (" + birthYear + "-" + deathYear + ")";
-	}
-	public static int getNextId() {
-		return nextId;
-	}
-	public static void setNextId() {
-		nextId = getComposerList().get(composerList.size()-1).getId()+1;
 	}
 	public int getId() {
 		return this.id;
@@ -93,14 +79,29 @@ public class Composer implements Serializable {
 	public static void setCount(int i) {
 		count = i;
 	}
-	public static void startProgramNextId() {
-		
-	}
 	public static ArrayList<Composer> getComposerList() {
 		return composerList;
 	}
 	public static void setComposerList(ArrayList<Composer> c) {
 		composerList = c;
+	}
+	public static Composer checkComposerList(Composer composer) {
+		tempComposerFullName = composer.getFullName();
+		for(Composer element : composerList) {
+			if(tempComposerFullName.equals(element.getFullName())) {
+				return element; //Composer is in composer list
+			}
+		}
+		return null; //Composer isn't in composer list
+	}
+	public static void addToComposerList(Composer composer) {
+		if(checkComposerList(composer) != null) {
+			System.out.println("Composer already in list");
+		}else {
+			composerList.add(composer);
+			System.out.println("New composer added to list");
+		}
+		
 	}
 		
 }
