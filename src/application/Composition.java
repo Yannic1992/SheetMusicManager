@@ -8,17 +8,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
 
-import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
-public class Composition implements Serializable, ObservableList<Composition>{
+public class Composition implements Serializable{
 	/**
 	 * 
 	 */
@@ -111,13 +105,13 @@ public class Composition implements Serializable, ObservableList<Composition>{
 				"\n" + "Title: " + titleOutput + "\n" + "Year: " + yearOutput + "\n" +
 				"Data Format: " + dataFormatOutput + "\n" + "ID: " + id + "\n";
 	}
-	public static ArrayList<Composition> getCompositionList() {
-		return compositionList;
+	public static ObservableList<Composition> getCompositionList() {
+		return obsCompositionList;
 	}
-	public static void setCompositionList(ArrayList<Composition> c) {
-		compositionList = c;
+	public static void setCompositionList(ObservableList<Composition> c) {
+		obsCompositionList = c;
 	}
-	public static void writeIntoFile(ArrayList<Composition> list) {
+	public static void writeIntoFile(ObservableList<Composition> list) {
 		 try {
 	         FileOutputStream fileOut =
 	         new FileOutputStream("src/application/ComposerList.ser", false);
@@ -136,18 +130,18 @@ public class Composition implements Serializable, ObservableList<Composition>{
 	      try {
 	         FileInputStream fileIn = new FileInputStream("src/application/ComposerList.ser");
 	         ObjectInputStream in = new ObjectInputStream(fileIn);
-	         compositionList = (ArrayList<Composition>) in.readObject();
+	         obsCompositionList = (ObservableList<Composition>) in.readObject();
 	         in.close();
 	         fileIn.close();
 	    	 System.out.println("File found");
-	    	 for(int i = 0; i<compositionList.size(); i++) {
-	    		 Controller.addToComposerList(compositionList.get(i).getComposer());
+	    	 for(int i = 0; i<obsCompositionList.size(); i++) {
+	    		 Controller.addToComposerList(obsCompositionList.get(i).getComposer());
 	    	 }
 	    	 Composer.setNextId();
 	    	 System.out.println("Set next ID for Composer: " + Composer.getNextId());
 	      }catch (FileNotFoundException f) {
 	    	  System.out.println("File not found");
-	    	  return;
+	    	 return;
 	      }catch (IOException i) {
 	         System.out.println("Test");
 	    	 return;
@@ -156,206 +150,6 @@ public class Composition implements Serializable, ObservableList<Composition>{
 	         c.printStackTrace();
 	         return;
 	      }
-	}
-
-	@Override
-	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean contains(Object o) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Iterator<Composition> iterator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Object[] toArray() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T> T[] toArray(T[] a) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean add(Composition e) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean remove(Object o) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean containsAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean addAll(Collection<? extends Composition> c) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean addAll(int index, Collection<? extends Composition> c) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean removeAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean retainAll(Collection<?> c) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void clear() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Composition get(int index) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Composition set(int index, Composition element) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void add(int index, Composition element) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Composition remove(int index) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int indexOf(Object o) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int lastIndexOf(Object o) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public ListIterator<Composition> listIterator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ListIterator<Composition> listIterator(int index) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Composition> subList(int fromIndex, int toIndex) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void addListener(InvalidationListener arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void removeListener(InvalidationListener arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean addAll(Composition... arg0) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void addListener(ListChangeListener<? super Composition> arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void remove(int arg0, int arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean removeAll(Composition... arg0) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void removeListener(ListChangeListener<? super Composition> arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public boolean retainAll(Composition... arg0) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean setAll(Composition... arg0) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean setAll(Collection<? extends Composition> arg0) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
-	
+	}	
 }
 

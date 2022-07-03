@@ -63,7 +63,7 @@ public class Controller implements Initializable {
 		Composer tempComposer = checkComposerList(composer);
 		
 		if(tempComposer == null) { //When true, then composer not in composer list
-			Composer.setNextId();
+			//Composer.setNextId();
 			composer.setId(Composer.getNextId());
 			composition.setComposer(composer);
 			addToComposerList(composer);
@@ -136,9 +136,7 @@ public class Controller implements Initializable {
 		composerCount.setText("Anzahl: " + Composer.getComposerList().size());
 		System.out.println("Refreshed composer number");
 		
-		compTableLastName = new TableColumn<>("Nachname");
-		compTableLastName.setCellValueFactory(
-		    new PropertyValueFactory<>("lastName"));
+		
 		
 		composerListLV.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
