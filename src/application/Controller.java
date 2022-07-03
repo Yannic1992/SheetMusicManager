@@ -11,8 +11,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 public class Controller implements Initializable {
 	@FXML
@@ -38,6 +41,10 @@ public class Controller implements Initializable {
 	private Label composerCount;
 	@FXML
 	private ListView<String> composerListLV;
+	@FXML
+	private TableView<Composition> composerTable;
+	@FXML
+	private TableColumn<Composition, Composer> compTableLastName;
 	
 	// Hilfsvariablen
 	private int selectedComposerInListView;
@@ -128,6 +135,10 @@ public class Controller implements Initializable {
 		System.out.println("Refreshed composer list");
 		composerCount.setText("Anzahl: " + Composer.getComposerList().size());
 		System.out.println("Refreshed composer number");
+		
+		compTableLastName = new TableColumn<>("Nachname");
+		compTableLastName.setCellValueFactory(
+		    new PropertyValueFactory<>("lastName"));
 		
 		composerListLV.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
