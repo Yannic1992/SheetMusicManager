@@ -17,6 +17,7 @@ public class Composition implements Serializable{
 	private String dataFormat; //In which format is the sheet music available i.e. printed or as pdf
 	private String year;
 	private int id;
+	private static transient int nextId; //Needed to get unique ID for next composition even if previous compositions have been deleted
 	private static transient int count=0;
 	
 	private static ArrayList<Composition> compositionList = new ArrayList<>();
@@ -25,8 +26,6 @@ public class Composition implements Serializable{
 		this.title = title;
 		this.year = year;
 		this.dataFormat = dataFormat;
-		count++;
-		this.id = count;
 	}
 
 	public Composer getComposer() {
@@ -53,14 +52,26 @@ public class Composition implements Serializable{
 	public void setYear(String year) {
 		this.year = year;
 	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int i) {
+		this.id = i;
+		System.out.println("Set ID for new Composition");
+	}
+	public static int getNextId() {
+		return nextId;
+	}
+	public static void setNextId(int i) {
+		nextId = i;
+		System.out.println("Set ID for next composition: " + getNextId());
+	}
 	public static int getCount() {
 		return count;
 	}
 	public static void setCount(int i) {
 		count = i;
-	}
-	public int getId() {
-		return id;
+		System.out.println("Set new number of compositions");
 	}
 	public String toString() {
 		String composerOutput;
@@ -100,6 +111,7 @@ public class Composition implements Serializable{
 	}
 	public static void addToCompositionList(Composition composition) {
 		compositionList.add(composition);
+		System.out.println("Added new composition to composition list");
 	}
 	public static String compositionListToString() {
 		String output = "";
@@ -126,23 +138,27 @@ public class Composition implements Serializable{
 	public static void readFile() {
 	      try {
 	         FileInputStream fileIn = new FileInputStream("src/application/CompositionList.ser");
+	         System.out.println("File found");
 	         ObjectInputStream in = new ObjectInputStream(fileIn);
 	         compositionList = (ArrayList<Composition>) in.readObject();
+	         System.out.println("Composition list refilled with saved data");
 	         in.close();
 	         fileIn.close();
-	    	 System.out.println("File found");
+	         setCount(compositionList.size());
+	    	 
+	    	 setNextId(getCompositionList().get(getCompositionList().size()-1).getId()+1);
+	    	 
 	    	 for(int i = 0; i<compositionList.size(); i++) {
 	    		 Composer.addToComposerList(compositionList.get(i).getComposer());
 	    	 }
 	    	 System.out.println("Composer list refilled with saved data");
 	    	 Composer.setCount(Composer.getComposerList().size());
-	    	 System.out.println("Set ID for next new composer: " + (Composer.getCount()+1));
-	    	 setCount(compositionList.size());
-	    	 System.out.println("Set number of compositions");
+	    	 Composer.setNextId(Composer.getComposerList().get(Composer.getComposerList().size()-1).getId()+1);
 	    	 System.out.println("Reading file finished");
 	      }catch (FileNotFoundException f) {
 	    	  System.out.println("File not found");
-	    	  System.out.println("Set ID for next new Composer: " + (Composer.getCount()+1));
+	    	  setNextId(1);
+	    	  Composer.setNextId(1);
 	    	  return;
 	      }catch (IOException i) {
 	         System.out.println("Good luck finding the bug");

@@ -55,13 +55,25 @@ public class Controller implements Initializable {
 		Composer tempComposer = Composer.checkComposerList(composer);
 		
 		if(tempComposer == null) { //When true, then composer not in composer list
+			composer.setId(Composer.getNextId());
+			System.out.println("Set ID for new composer");
 			composition.setComposer(composer);
+			System.out.println("Added new composer to composition");
 			Composer.addToComposerList(composer);
+			System.out.println("Added new composer to composer list");
+			Composer.setCount(Composer.getComposerList().size());
+			System.out.println("Set new number of composers");
+			Composer.setNextId(Composer.getComposerList().get(Composer.getComposerList().size()-1).getId()+1);
+			System.out.println("Set ID for next composer: " + Composer.getNextId());
 		} else {
 			composition.setComposer(tempComposer);
+			System.out.println("Added existing composer to composition");
 		}
 		
+		composition.setId(Composition.getNextId());
 		Composition.addToCompositionList(composition);
+		Composition.setCount(Composition.getCompositionList().size());
+		Composition.setNextId(Composition.getCompositionList().get(Composition.getCompositionList().size()-1).getId());
 		
 		initialize(null, null);
 		
@@ -88,7 +100,7 @@ public class Controller implements Initializable {
 		System.out.println("Cleared GUI composer list");
 		composerListLV.getItems().addAll(tempComposerList);
 		System.out.println("Refreshed GUI composer list");
-		composerCount.setText("Anzahl: " + Composer.getComposerList().size());
+		composerCount.setText("Anzahl: " + Composer.getCount());
 		System.out.println("Refreshed label for number of composers");
 		compositionCount.setText("Anzahl: " + Composition.getCount());
 		System.out.println("Refreshed label for number of compositions");
