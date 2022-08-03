@@ -36,7 +36,7 @@ public class Controller implements Initializable {
 	private TextField dataFormatOfComposition;
 	//private Button addComposition;
 	@FXML
-	private TextArea compositionTA;
+	private Label compositionCount;
 	@FXML
 	private Label composerCount;
 	@FXML
@@ -61,6 +61,7 @@ public class Controller implements Initializable {
 	private static String tempComposerFullName;
 	
 	
+	@SuppressWarnings("exports")
 	public void add(ActionEvent e) throws IOException {
 				
 		Composer composer = new Composer(firstName.getText(), secondName.getText(), lastName.getText(), 
@@ -86,8 +87,6 @@ public class Controller implements Initializable {
 		
 		addToCompositionList(composition);
 		
-		compositionTA.setText(Composition.getCompositionList().toString());
-		
 		firstName.clear();
 		firstName.requestFocus();
 		secondName.clear();
@@ -99,7 +98,8 @@ public class Controller implements Initializable {
 		dataFormatOfComposition.clear();
 		
 		Composition.writeIntoFile(Composition.getCompositionList());
-		
+		compositionTable.getItems().add(Composition.getCompositionList().get(Composition.getCompositionList().size()-1));
+		compositionCount.setText("Anzahl: " + Composition.getCompositionList().size());
 	}
 	
 	public static void addToComposerList(Composer composer) {
@@ -154,44 +154,13 @@ public class Controller implements Initializable {
 		compTableLastName.setCellValueFactory(new PropertyValueFactory<Composition, String>("lastName"));
 		compTableFirstName.setCellValueFactory(new PropertyValueFactory<Composition, String>("firstName"));
 		compTableSecondName.setCellValueFactory(new PropertyValueFactory<Composition, String>("secondName"));
-		try {
-			System.out.println("try1");
-			compTableTitle.setCellValueFactory(new PropertyValueFactory<Composition, String>("title"));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		compTableTitle.setCellValueFactory(new PropertyValueFactory<Composition, String>("title"));
 		compTableYear.setCellValueFactory(new PropertyValueFactory<Composition, String>("year"));
 		compTableFormat.setCellValueFactory(new PropertyValueFactory<Composition, String>("dataFormat"));
 		
-		//compositionTable.getColumns().add(compTableLastName);
-		//compositionTable.getColumns().add(compTableFirstName);
-		//compositionTable.getColumns().add(compTableSecondName);
-		try {
-			System.out.println("try11");
-
-			//compositionTable.getColumns().add(compTableTitle);
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		//compositionTable.getColumns().add(compTableYear);
-		//compositionTable.getColumns().add(compTableFormat);
+		compositionTable.getItems().addAll(Composition.getCompositionList());
+		compositionCount.setText("Anzahl: " + Composition.getCompositionList().size());
 		
-		try {
-			System.out.println("try2");
-
-			//compositionTable.getItems().add(new Composition("test", "test", "test"));
-			//compositionTable.getItems().add(new Composition("test2", "tes2t", "t2est"));
-			compositionTable.getItems().addAll(Composition.getCompositionList());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println("cTCH2");
-
-			e.printStackTrace();
-		}
-		
-		System.out.println("fn");
 
 		composerListLV.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
