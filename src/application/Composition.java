@@ -33,6 +33,7 @@ public class Composition implements Serializable{
 		this.year = year;
 		this.dataFormat = dataFormat;
 		count++;
+		System.out.println(count);
 		this.id = count;
 	}
 	
@@ -41,6 +42,7 @@ public class Composition implements Serializable{
 		this.dataFormat = "";
 		this.year = "";
 		count++;
+		System.out.println(count);
 		this.id = count;
 	}
 	public Composer getComposer() {
@@ -49,6 +51,15 @@ public class Composition implements Serializable{
 
 	public void setComposer(Composer composer) {
 		this.composer = composer;
+	}
+	public String getLastName() {
+		return composer.getLastName();
+	}
+	public String getFirstName() {
+		return composer.getFirstName();
+	}
+	public String getSecondName() {
+		return composer.getSecondName();
 	}
 
 	public String getTitle() {
@@ -113,13 +124,16 @@ public class Composition implements Serializable{
 	}
 	public static void writeIntoFile(ObservableList<Composition> list) {
 		 try {
+			 ArrayList<Composition> arrayList = new ArrayList<>();
+			 arrayList.addAll(list);
+			 
 	         FileOutputStream fileOut =
-	         new FileOutputStream("src/application/ComposerList.ser", false);
+	         new FileOutputStream("src/application/CompositionList.ser", false);
 	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
-	         out.writeObject(list);
+	         out.writeObject(arrayList);
 	         out.close();
 	         fileOut.close();
-	         System.out.println("Serialized data is saved in src/application/ComposerList.ser");
+	         System.out.println("Serialized data is saved in src/application/CompositionList.ser");
 	      } catch (IOException i) {
 	         i.printStackTrace();
 	      }
@@ -128,14 +142,15 @@ public class Composition implements Serializable{
 	@SuppressWarnings("unchecked")
 	public static void readFile() {
 	      try {
-	         FileInputStream fileIn = new FileInputStream("src/application/ComposerList.ser");
+	         FileInputStream fileIn = new FileInputStream("src/application/CompositionList.ser");
 	         ObjectInputStream in = new ObjectInputStream(fileIn);
-	         obsCompositionList = (ObservableList<Composition>) in.readObject();
+	         compositionList = (ArrayList<Composition>) in.readObject();
 	         in.close();
 	         fileIn.close();
 	    	 System.out.println("File found");
-	    	 for(int i = 0; i<obsCompositionList.size(); i++) {
-	    		 Controller.addToComposerList(obsCompositionList.get(i).getComposer());
+	    	 for(int i = 0; i<compositionList.size(); i++) {
+	    		 Controller.addToComposerList(compositionList.get(i).getComposer());
+	    		 obsCompositionList.add(compositionList.get(i));
 	    	 }
 	    	 Composer.setNextId();
 	    	 System.out.println("Set next ID for Composer: " + Composer.getNextId());

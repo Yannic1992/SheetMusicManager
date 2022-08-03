@@ -37,14 +37,14 @@
       <Label layoutX="440.0" layoutY="14.0" text="Komponistenliste:" />
       <ListView fx:id="composerListLV" layoutX="440.0" layoutY="35.0" prefHeight="451.0" prefWidth="246.0" />
       <Label fx:id="composerCount" layoutX="614.0" layoutY="14.0" prefHeight="17.0" prefWidth="72.0" text="Anzahl: " />
-      <TableView fx:id="composerTable" layoutX="14.0" layoutY="174.0" prefHeight="312.0" prefWidth="415.0">
+      <TableView fx:id="compositionTable" layoutX="14.0" layoutY="174.0" prefHeight="312.0" prefWidth="415.0">
         <columns>
           <TableColumn fx:id="compTableLastName" prefWidth="75.0" text="Nachname" />
           <TableColumn fx:id="compTableFirstName" prefWidth="75.0" text="Vorname" />
           <TableColumn fx:id="compTableSecondName" prefWidth="75.0" text="Zweitname" />
           <TableColumn fx:id="compTableTitle" prefWidth="75.0" text="Titel" />
-          <TableColumn fx:id="compTableYear" prefWidth="40.0" text="Jahr" />
-          <TableColumn fx:id="compTableFormat" prefWidth="75.0" text="Dateiformat" />
+          <TableColumn fx:id="compTableYear" prefWidth="38.0" text="Jahr" />
+          <TableColumn fx:id="compTableFormat" prefWidth="77.0" text="Dateiformat" />
         </columns>
       </TableView>
    </children>

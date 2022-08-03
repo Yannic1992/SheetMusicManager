@@ -5,4 +5,7 @@ module SheetMusicManager {
 	requires javafx.base;
 	
 	opens application to javafx.graphics, javafx.fxml;
+	//opens application to javafx.fxml;
+	
+	exports application;
 }

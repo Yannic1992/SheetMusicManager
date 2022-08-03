@@ -42,9 +42,19 @@ public class Controller implements Initializable {
 	@FXML
 	private ListView<String> composerListLV;
 	@FXML
-	private TableView<Composition> composerTable;
+	private TableView<Composition> compositionTable = new TableView<Composition>();
 	@FXML
-	private TableColumn<Composition, Composer> compTableLastName;
+	private TableColumn<Composition, String> compTableLastName = new TableColumn<Composition, String>();
+	@FXML
+	private TableColumn<Composition, String> compTableFirstName= new TableColumn<Composition, String>();
+	@FXML
+	private TableColumn<Composition, String> compTableSecondName = new TableColumn<Composition, String>();
+	@FXML
+	private TableColumn<Composition, String> compTableTitle = new TableColumn<Composition, String>();
+	@FXML
+	private TableColumn<Composition, String> compTableYear = new TableColumn<Composition, String>();
+	@FXML
+	private TableColumn<Composition, String> compTableFormat = new TableColumn<Composition, String>();
 	
 	// Hilfsvariablen
 	private int selectedComposerInListView;
@@ -67,11 +77,12 @@ public class Controller implements Initializable {
 			composer.setId(Composer.getNextId());
 			composition.setComposer(composer);
 			addToComposerList(composer);
+			Composer.setNextId();
 		} else {
 			composition.setComposer(tempComposer);
 		}
 		
-		initialize(null, null);
+		refreshComposerList();
 		
 		addToCompositionList(composition);
 		
@@ -122,9 +133,8 @@ public class Controller implements Initializable {
 			
 		return output;
 	}
-
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
+	
+	public void refreshComposerList() {
 		String[] tempComposerList = new String[Composer.getComposerList().size()];
 		for(int i = 0; i<Composer.getComposerList().size(); i++) {
 			tempComposerList[i] = Composer.getComposerList().get(i).getComposer();
@@ -135,9 +145,54 @@ public class Controller implements Initializable {
 		System.out.println("Refreshed composer list");
 		composerCount.setText("Anzahl: " + Composer.getComposerList().size());
 		System.out.println("Refreshed composer number");
+	}
+	
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) {
+		refreshComposerList();
 		
+		compTableLastName.setCellValueFactory(new PropertyValueFactory<Composition, String>("lastName"));
+		compTableFirstName.setCellValueFactory(new PropertyValueFactory<Composition, String>("firstName"));
+		compTableSecondName.setCellValueFactory(new PropertyValueFactory<Composition, String>("secondName"));
+		try {
+			System.out.println("try1");
+			compTableTitle.setCellValueFactory(new PropertyValueFactory<Composition, String>("title"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		compTableYear.setCellValueFactory(new PropertyValueFactory<Composition, String>("year"));
+		compTableFormat.setCellValueFactory(new PropertyValueFactory<Composition, String>("dataFormat"));
 		
+		//compositionTable.getColumns().add(compTableLastName);
+		//compositionTable.getColumns().add(compTableFirstName);
+		//compositionTable.getColumns().add(compTableSecondName);
+		try {
+			System.out.println("try11");
+
+			//compositionTable.getColumns().add(compTableTitle);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		//compositionTable.getColumns().add(compTableYear);
+		//compositionTable.getColumns().add(compTableFormat);
 		
+		try {
+			System.out.println("try2");
+
+			//compositionTable.getItems().add(new Composition("test", "test", "test"));
+			//compositionTable.getItems().add(new Composition("test2", "tes2t", "t2est"));
+			compositionTable.getItems().addAll(Composition.getCompositionList());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("cTCH2");
+
+			e.printStackTrace();
+		}
+		
+		System.out.println("fn");
+
 		composerListLV.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {

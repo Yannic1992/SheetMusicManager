@@ -73,7 +73,7 @@ public class Composer implements Serializable {
 		this.deathYear = deathYear;
 	}
 	public String getComposer() {
-		return getFullName() + " (" + birthYear + "-" + deathYear + ")";
+		return getFullName() + " (" + birthYear + "-" + deathYear + ")" + ": " + id;
 	}
 	public static int getNextId() {
 		return nextId;
