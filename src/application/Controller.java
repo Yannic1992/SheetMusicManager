@@ -13,7 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -151,12 +150,15 @@ public class Controller implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		refreshComposerList();
 		
+
 		compTableLastName.setCellValueFactory(new PropertyValueFactory<Composition, String>("lastName"));
 		compTableFirstName.setCellValueFactory(new PropertyValueFactory<Composition, String>("firstName"));
 		compTableSecondName.setCellValueFactory(new PropertyValueFactory<Composition, String>("secondName"));
 		compTableTitle.setCellValueFactory(new PropertyValueFactory<Composition, String>("title"));
 		compTableYear.setCellValueFactory(new PropertyValueFactory<Composition, String>("year"));
 		compTableFormat.setCellValueFactory(new PropertyValueFactory<Composition, String>("dataFormat"));
+
+
 		
 		compositionTable.getItems().addAll(Composition.getCompositionList());
 		compositionCount.setText("Anzahl: " + Composition.getCompositionList().size());

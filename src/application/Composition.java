@@ -9,8 +9,10 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 
 public class Composition implements Serializable{
 	/**
@@ -165,6 +167,10 @@ public class Composition implements Serializable{
 	         c.printStackTrace();
 	         return;
 	      }
+
 	}	
+
 }
+
+
 
