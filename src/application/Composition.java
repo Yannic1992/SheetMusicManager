@@ -58,6 +58,12 @@ public class Composition implements Serializable{
 	public String getSecondName() {
 		return this.composer.getSecondName();
 	}
+	public String getBirtYear() {
+		return this.composer.getBirthYear();
+	}
+	public String getDeathYear() {
+		return this.composer.getDeathYear();
+	}
 	public String getTitle() {
 		return this.title;
 	}
