@@ -17,10 +17,10 @@
       <TextField fx:id="secondName" layoutX="84.0" layoutY="56.0" prefHeight="25.0" prefWidth="60.0" />
       <Label layoutX="154.0" layoutY="35.0" prefHeight="17.0" prefWidth="60.0" text="Nachname:" />
       <TextField fx:id="lastName" layoutX="154.0" layoutY="56.0" prefHeight="25.0" prefWidth="60.0" />
-      <Label layoutX="224.0" layoutY="35.0" text="Geburt:" />
-      <TextField fx:id="birthYear" layoutX="224.0" layoutY="56.0" prefHeight="25.0" prefWidth="40.0" />
-      <Label layoutX="274.0" layoutY="35.0" prefHeight="17.0" prefWidth="40.0" text="Tod:" />
-      <TextField fx:id="deathYear" layoutX="274.0" layoutY="56.0" prefHeight="25.0" prefWidth="40.0" />
+      <Label layoutX="224.0" layoutY="35.0" text="Geburtjahr:" />
+      <TextField fx:id="birthYear" layoutX="224.0" layoutY="56.0" prefHeight="25.0" prefWidth="60.0" />
+      <Label layoutX="294.0" layoutY="35.0" prefHeight="17.0" prefWidth="60.0" text="Todesjahr:" />
+      <TextField fx:id="deathYear" layoutX="294.0" layoutY="56.0" prefHeight="25.0" prefWidth="60.0" />
       <Label layoutX="14.0" layoutY="86.0" text="Stück:" />
       <Label layoutX="14.0" layoutY="103.0" text="Titel:" />
       <TextField fx:id="titleOfComposition" layoutX="14.0" layoutY="120.0" prefHeight="25.0" prefWidth="120.0" />
@@ -28,12 +28,12 @@
       <TextField fx:id="yearOfComposition" layoutX="142.0" layoutY="120.0" prefHeight="25.0" prefWidth="40.0" />
       <Label layoutX="194.0" layoutY="103.0" text="Dateiformat:" />
       <TextField fx:id="dataFormatOfComposition" layoutX="194.0" layoutY="120.0" prefHeight="25.0" prefWidth="66.0" />
-      <Button fx:id="addComposition" layoutX="275.0" layoutY="120.0" mnemonicParsing="false" onAction="#add" text="Hinzufügen" />
-      <Button layoutX="356.0" layoutY="120.0" mnemonicParsing="false" text="Bearbeiten" />
+      <Button fx:id="addComposition" layoutX="272.0" layoutY="120.0" mnemonicParsing="false" onAction="#add" text="Hinzufügen" />
+      <Button fx:id="editButton" layoutX="356.0" layoutY="120.0" mnemonicParsing="false" text="Bearbeiten" />
       <Label layoutX="16.0" layoutY="153.0" text="Kompositionen:" />
       <Label fx:id="compositionCount" layoutX="357.0" layoutY="153.0" prefHeight="17.0" prefWidth="72.0" text="Anzahl: " />
       <Label layoutX="440.0" layoutY="14.0" text="Komponistenliste:" />
-      <ListView fx:id="composerListLV" layoutX="440.0" layoutY="35.0" prefHeight="451.0" prefWidth="246.0" />
+      <ListView fx:id="composerListView" layoutX="440.0" layoutY="35.0" prefHeight="451.0" prefWidth="246.0" />
       <Label fx:id="composerCount" layoutX="614.0" layoutY="14.0" prefHeight="17.0" prefWidth="72.0" text="Anzahl: " />
       <TableView fx:id="compositionTable" layoutX="14.0" layoutY="174.0" prefHeight="312.0" prefWidth="415.0">
         <columns>

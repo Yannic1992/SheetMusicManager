@@ -9,10 +9,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 
 public class Composition implements Serializable{
 	/**
@@ -24,71 +22,76 @@ public class Composition implements Serializable{
 	private String dataFormat; // in which format is the sheet music available i.e. printed or as pdf
 	private String year;
 	private int id;
-	private static int count=0;
+	private static int nextId = 1;
+	//private static int count=0;
 	
 	private static ArrayList<Composition> compositionList = new ArrayList<>();
 	private static ObservableList<Composition> obsCompositionList = FXCollections.observableArrayList();
-	
 	
 	public Composition(String title, String year, String dataFormat) {
 		this.title = title;
 		this.year = year;
 		this.dataFormat = dataFormat;
-		count++;
-		System.out.println(count);
-		this.id = count;
+		//count++;
+		//this.id = count;
 	}
-	
 	public Composition() {
 		this.title = "";
 		this.dataFormat = "";
 		this.year = "";
-		count++;
-		System.out.println(count);
-		this.id = count;
+		//count++;
+		//this.id = count;
 	}
+	
 	public Composer getComposer() {
 		return composer;
 	}
-
 	public void setComposer(Composer composer) {
 		this.composer = composer;
 	}
 	public String getLastName() {
-		return composer.getLastName();
+		return this.composer.getLastName();
 	}
 	public String getFirstName() {
-		return composer.getFirstName();
+		return this.composer.getFirstName();
 	}
 	public String getSecondName() {
-		return composer.getSecondName();
+		return this.composer.getSecondName();
 	}
-
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
 	public void setTitle(String title) {
 		this.title = title;
 	}
 	public String getDataFormat() {
-		return dataFormat;
+		return this.dataFormat;
 	}
 	public void setDataFormat(String dataFormat) {
 		this.dataFormat = dataFormat;
 	}
 	public String getYear() {
-		return year;
+		return this.year;
 	}
 	public void setYear(String year) {
 		this.year = year;
 	}
-	public static int getCount() {
+	/*public static int getCount() {
 		return count;
-	}
+	}*/
 	public int getId() {
-		return id;
+		return this.id;
 	}
-	public String toString() {
+	public void setId(int i) {
+		this.id = i;
+	}
+	public static int getNextId() {
+		return nextId;
+	}
+	public static void setNextId() {
+		nextId = getObsCompositionList().get(getObsCompositionList().size()-1).getId()+1;
+	}
+	/*public String toString() {
 		String composerOutput;
 		String titleOutput;
 		String yearOutput;
@@ -96,7 +99,7 @@ public class Composition implements Serializable{
 		if(composer == null) {
 			composerOutput = "Unbekannt";
 		} else {
-			 composerOutput = composer.getComposer();
+			 composerOutput = composer.getComposerNameWithYears();
 		} 
 		if(title == "") {
 			titleOutput = "Unbekannt";
@@ -117,12 +120,15 @@ public class Composition implements Serializable{
 		return "Composer: " + composerOutput + "\n" + "Composer-ID: " + String.valueOf(composer.getId()) + 
 				"\n" + "Title: " + titleOutput + "\n" + "Year: " + yearOutput + "\n" +
 				"Data Format: " + dataFormatOutput + "\n" + "ID: " + id + "\n";
-	}
-	public static ObservableList<Composition> getCompositionList() {
+	}*/
+	public static ObservableList<Composition> getObsCompositionList() {
 		return obsCompositionList;
 	}
-	public static void setCompositionList(ObservableList<Composition> c) {
+	public static void setObsCompositionList(ObservableList<Composition> c) {
 		obsCompositionList = c;
+	}
+	public static void addToObsCompositionList(Composition composition) {
+		Composition.getObsCompositionList().add(composition);
 	}
 	public static void writeIntoFile(ObservableList<Composition> list) {
 		 try {
@@ -140,7 +146,6 @@ public class Composition implements Serializable{
 	         i.printStackTrace();
 	      }
 	}
-	
 	@SuppressWarnings("unchecked")
 	public static void readFile() {
 	      try {
@@ -151,11 +156,13 @@ public class Composition implements Serializable{
 	         fileIn.close();
 	    	 System.out.println("File found");
 	    	 for(int i = 0; i<compositionList.size(); i++) {
-	    		 Controller.addToComposerList(compositionList.get(i).getComposer());
+	    		 Composer.addToComposerList(compositionList.get(i).getComposer());
 	    		 obsCompositionList.add(compositionList.get(i));
 	    	 }
 	    	 Composer.setNextId();
 	    	 System.out.println("Set next ID for Composer: " + Composer.getNextId());
+	    	 setNextId();
+	    	 System.out.println("Set next ID for Composition: " + getNextId());
 	      }catch (FileNotFoundException f) {
 	    	  System.out.println("File not found");
 	    	 return;
@@ -167,8 +174,6 @@ public class Composition implements Serializable{
 	         c.printStackTrace();
 	         return;
 	      }
-
-	}	
-
+	}
 }
 

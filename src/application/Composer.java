@@ -15,10 +15,11 @@ public class Composer implements Serializable {
 	private String deathYear;
 	private int id;
 	private static int nextId = 1;
-	private static int count=0;
+	//private static int count=0;
+	
+	//private static String tempComposerFullName;
 	
 	private static ArrayList<Composer> composerList = new ArrayList<>();
-	
 	
 	public Composer(String firstName, String secondName, String lastName, String birthYear, String deathYear) {
 		this.firstName = firstName;
@@ -72,7 +73,7 @@ public class Composer implements Serializable {
 	public void setDeathYear(String deathYear) {
 		this.deathYear = deathYear;
 	}
-	public String getComposer() {
+	public String getComposerNameWithYears() {
 		return getFullName() + " (" + birthYear + "-" + deathYear + ")" + ": " + id;
 	}
 	public static int getNextId() {
@@ -87,7 +88,7 @@ public class Composer implements Serializable {
 	public void setId(int i) {
 		this.id = i;
 	}
-	public static int getCount() {
+	/*public static int getCount() {
 		return count;
 	}
 	public static void setCount(int i) {
@@ -95,12 +96,27 @@ public class Composer implements Serializable {
 	}
 	public static void startProgramNextId() {
 		
-	}
+	}*/
 	public static ArrayList<Composer> getComposerList() {
 		return composerList;
 	}
 	public static void setComposerList(ArrayList<Composer> c) {
 		composerList = c;
 	}
-		
+	public static Composer checkComposerList(Composer composer) {
+		String tempComposerFullName = composer.getFullName();
+		for(Composer element : getComposerList()) {
+			if(tempComposerFullName.equals(element.getFullName())) {
+				return element;
+			}
+		}
+		return null;
+	}
+	public static void addToComposerList(Composer composer) {
+		if(checkComposerList(composer) != null) {
+			System.out.println("Composer already in list");
+		}else {
+			Composer.getComposerList().add(composer);
+		}
+	}		
 }
