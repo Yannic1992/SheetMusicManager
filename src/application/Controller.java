@@ -151,12 +151,14 @@ public class Controller implements Initializable {
 		refreshComposerList();
 		
 
+
 		compTableLastName.setCellValueFactory(new PropertyValueFactory<Composition, String>("lastName"));
 		compTableFirstName.setCellValueFactory(new PropertyValueFactory<Composition, String>("firstName"));
 		compTableSecondName.setCellValueFactory(new PropertyValueFactory<Composition, String>("secondName"));
 		compTableTitle.setCellValueFactory(new PropertyValueFactory<Composition, String>("title"));
 		compTableYear.setCellValueFactory(new PropertyValueFactory<Composition, String>("year"));
 		compTableFormat.setCellValueFactory(new PropertyValueFactory<Composition, String>("dataFormat"));
+
 
 
 		
