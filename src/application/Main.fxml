@@ -17,10 +17,10 @@
       <TextField fx:id="secondName" layoutX="84.0" layoutY="56.0" prefHeight="25.0" prefWidth="60.0" />
       <Label layoutX="154.0" layoutY="35.0" prefHeight="17.0" prefWidth="60.0" text="Nachname:" />
       <TextField fx:id="lastName" layoutX="154.0" layoutY="56.0" prefHeight="25.0" prefWidth="60.0" />
-      <Label layoutX="224.0" layoutY="35.0" text="Geburtjahr:" />
-      <TextField fx:id="birthYear" layoutX="224.0" layoutY="56.0" prefHeight="25.0" prefWidth="60.0" />
-      <Label layoutX="294.0" layoutY="35.0" prefHeight="17.0" prefWidth="60.0" text="Todesjahr:" />
-      <TextField fx:id="deathYear" layoutX="294.0" layoutY="56.0" prefHeight="25.0" prefWidth="60.0" />
+      <Label layoutX="224.0" layoutY="35.0" text="Geburtsjahr:" />
+      <TextField fx:id="birthYear" layoutX="224.0" layoutY="56.0" prefHeight="25.0" prefWidth="65.0" />
+      <Label layoutX="297.0" layoutY="35.0" prefHeight="17.0" prefWidth="60.0" text="Todesjahr:" />
+      <TextField fx:id="deathYear" layoutX="297.0" layoutY="56.0" prefHeight="25.0" prefWidth="65.0" />
       <Label layoutX="14.0" layoutY="86.0" text="Stück:" />
       <Label layoutX="14.0" layoutY="103.0" text="Titel:" />
       <TextField fx:id="titleOfComposition" layoutX="14.0" layoutY="120.0" prefHeight="25.0" prefWidth="120.0" />

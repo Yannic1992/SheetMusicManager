@@ -6,7 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-
 public class Main extends Application {
 	@SuppressWarnings("exports")
 	@Override
@@ -18,8 +17,6 @@ public class Main extends Application {
 			stage.setScene(scene);
 			stage.setTitle("Sheet Music Manager");
 			stage.show();
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -28,13 +25,5 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		Composition.readFile();
 		launch(args);
-		//Composer bach = new Composer("Johann", "Sebastian", "Bach", "1675", "1750");
-		//Composition toccata = new Composition(bach, "Toccata und Fugue", "Druck", "1700");
-		//Composition test = new Composition();
-		//System.out.println(Composition.compositionListToString());
-		
-		
 	}
-
-	
 }

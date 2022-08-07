@@ -13,16 +13,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Composition implements Serializable{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private Composer composer;
 	private String title;
 	private String dataFormat; // in which format is the sheet music available i.e. printed or as pdf
 	private String year;
 	private int id;
-	private static int nextId = 1;
+	//private static int nextId = 1;
 	//private static int count=0;
 	
 	private static ArrayList<Composition> compositionList = new ArrayList<>();
@@ -88,15 +86,25 @@ public class Composition implements Serializable{
 	public int getId() {
 		return this.id;
 	}
-	public void setId(int i) {
-		this.id = i;
+	public void setId() {
+		if(obsCompositionList.size() == 0) {
+			this.id = 1;
+		} else {
+			int maxId = 0;
+			for(int i =0; i<obsCompositionList.size(); i++) {
+				if(obsCompositionList.get(i).getId() > maxId) {
+					maxId = obsCompositionList.get(i).getId();
+				}
+			}
+			this.id = maxId+1;
+		}
 	}
-	public static int getNextId() {
+	/*public static int getNextId() {
 		return nextId;
 	}
 	public static void setNextId() {
 		nextId = getObsCompositionList().get(getObsCompositionList().size()-1).getId()+1;
-	}
+	}*/
 	/*public String toString() {
 		String composerOutput;
 		String titleOutput;
@@ -134,13 +142,14 @@ public class Composition implements Serializable{
 		obsCompositionList = c;
 	}
 	public static void addToObsCompositionList(Composition composition) {
+		composition.setId();
 		Composition.getObsCompositionList().add(composition);
+		System.out.println("Composition ID: " + composition.getId());
 	}
 	public static void writeIntoFile(ObservableList<Composition> list) {
 		 try {
 			 ArrayList<Composition> arrayList = new ArrayList<>();
 			 arrayList.addAll(list);
-			 
 	         FileOutputStream fileOut =
 	         new FileOutputStream("src/application/CompositionList.ser", false);
 	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -165,15 +174,15 @@ public class Composition implements Serializable{
 	    		 Composer.addToComposerList(compositionList.get(i).getComposer());
 	    		 obsCompositionList.add(compositionList.get(i));
 	    	 }
-	    	 Composer.setNextId();
-	    	 System.out.println("Set next ID for Composer: " + Composer.getNextId());
-	    	 setNextId();
-	    	 System.out.println("Set next ID for Composition: " + getNextId());
+	    	 //Composer.setNextId();
+	    	 //System.out.println("Set next ID for Composer: " + Composer.getNextId());
+	    	 //setNextId();
+	    	 //System.out.println("Set next ID for Composition: " + getNextId());
 	      }catch (FileNotFoundException f) {
 	    	  System.out.println("File not found");
 	    	 return;
 	      }catch (IOException i) {
-	         System.out.println("Test");
+	         System.out.println("IOException");
 	    	 return;
 	      }catch (ClassNotFoundException c) {
 	    	 System.out.println("Composer class not found");

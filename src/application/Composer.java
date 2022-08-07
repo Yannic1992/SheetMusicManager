@@ -2,11 +2,10 @@ package application;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Composer implements Serializable {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private String firstName;
 	private String secondName;
@@ -14,9 +13,8 @@ public class Composer implements Serializable {
 	private String birthYear;
 	private String deathYear;
 	private int id;
-	private static int nextId = 1;
+	//private static int nextId = 1;
 	//private static int count=0;
-	
 	//private static String tempComposerFullName;
 	
 	private static ArrayList<Composer> composerList = new ArrayList<>();
@@ -56,9 +54,9 @@ public class Composer implements Serializable {
 	}
 	public String getFullName() {
 		if(this.secondName == "") {
-			return this.firstName + " " + this.lastName;
+			return this.lastName + " " + this.firstName;
 		}else{
-			return this.firstName + " " + this.secondName + " " + this.lastName;
+			return this.lastName + " " + this.firstName + " " + this.secondName;
 		}
 	}
 	public String getBirthYear() {
@@ -76,17 +74,33 @@ public class Composer implements Serializable {
 	public String getComposerNameWithYears() {
 		return getFullName() + " (" + birthYear + "-" + deathYear + ")" + ": " + id;
 	}
-	public static int getNextId() {
+	/*public static int getNextId() {
 		return nextId;
 	}
 	public static void setNextId() {
-		nextId = getComposerList().get(composerList.size()-1).getId()+1;
-	}
+		int maxId = 0;
+		for(int i =0; i<composerList.size(); i++) {
+			if(composerList.get(i).getId() > maxId) {
+				maxId = composerList.get(i).getId();
+			}
+		}
+		nextId = maxId+1;
+	}*/
 	public int getId() {
 		return this.id;
 	}
-	public void setId(int i) {
-		this.id = i;
+	public void setId() {
+		if(composerList.size() == 0) {
+			this.id = 1;
+		} else {
+			int maxId = 0;
+			for(int i =0; i<composerList.size(); i++) {
+				if(composerList.get(i).getId() > maxId) {
+					maxId = composerList.get(i).getId();
+				}
+			}
+			this.id = maxId+1;
+		}
 	}
 	/*public static int getCount() {
 		return count;
@@ -113,10 +127,20 @@ public class Composer implements Serializable {
 		return null;
 	}
 	public static void addToComposerList(Composer composer) {
+		composer.setId();
 		if(checkComposerList(composer) != null) {
 			System.out.println("Composer already in list");
 		}else {
 			Composer.getComposerList().add(composer);
 		}
-	}		
+		//setNextId();
+	}
+	public static Comparator<Composer> compListSortByName = new Comparator<Composer>() {
+		@Override
+		public int compare(Composer o1, Composer o2) {
+			String compName1 = o1.getFullName().toUpperCase();
+			String compName2 = o2.getFullName().toUpperCase();
+			return compName1.compareTo(compName2);
+		}
+	};
 }
