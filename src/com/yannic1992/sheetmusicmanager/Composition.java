@@ -1,4 +1,4 @@
-package application;
+package com.yannic1992.sheetmusicmanager;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -151,12 +151,12 @@ public class Composition implements Serializable{
 			 ArrayList<Composition> arrayList = new ArrayList<>();
 			 arrayList.addAll(list);
 	         FileOutputStream fileOut =
-	         new FileOutputStream("src/application/CompositionList.ser", false);
+	         new FileOutputStream("src/com/yannic1992/sheetmusicmanager/CompositionList.ser", false);
 	         ObjectOutputStream out = new ObjectOutputStream(fileOut);
 	         out.writeObject(arrayList);
 	         out.close();
 	         fileOut.close();
-	         System.out.println("Serialized data is saved in src/application/CompositionList.ser");
+	         System.out.println("Serialized data is saved in src/com/yannic1992/sheetmusicmanager/CompositionList.ser");
 	      } catch (IOException i) {
 	         i.printStackTrace();
 	      }
@@ -164,7 +164,7 @@ public class Composition implements Serializable{
 	@SuppressWarnings("unchecked")
 	public static void readFile() {
 	      try {
-	         FileInputStream fileIn = new FileInputStream("src/application/CompositionList.ser");
+	         FileInputStream fileIn = new FileInputStream("src/com/yannic1992/sheetmusicmanager/CompositionList.ser");
 	         ObjectInputStream in = new ObjectInputStream(fileIn);
 	         compositionList = (ArrayList<Composition>) in.readObject();
 	         in.close();

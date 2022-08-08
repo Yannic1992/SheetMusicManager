@@ -1,4 +1,4 @@
-package application;
+package com.yannic1992.sheetmusicmanager;
 
 import java.io.IOException;
 import java.net.URL;
