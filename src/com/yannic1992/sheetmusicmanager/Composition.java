@@ -20,8 +20,6 @@ public class Composition implements Serializable{
 	private String dataFormat; // in which format is the sheet music available i.e. printed or as pdf
 	private String year;
 	private int id;
-	//private static int nextId = 1;
-	//private static int count=0;
 	
 	private static ArrayList<Composition> compositionList = new ArrayList<>();
 	private static ObservableList<Composition> obsCompositionList = FXCollections.observableArrayList();
@@ -30,15 +28,11 @@ public class Composition implements Serializable{
 		this.title = title;
 		this.year = year;
 		this.dataFormat = dataFormat;
-		//count++;
-		//this.id = count;
 	}
 	public Composition() {
 		this.title = "";
 		this.dataFormat = "";
 		this.year = "";
-		//count++;
-		//this.id = count;
 	}
 	
 	public Composer getComposer() {
@@ -80,9 +74,6 @@ public class Composition implements Serializable{
 	public void setYear(String year) {
 		this.year = year;
 	}
-	/*public static int getCount() {
-		return count;
-	}*/
 	public int getId() {
 		return this.id;
 	}
@@ -99,12 +90,6 @@ public class Composition implements Serializable{
 			this.id = maxId+1;
 		}
 	}
-	/*public static int getNextId() {
-		return nextId;
-	}
-	public static void setNextId() {
-		nextId = getObsCompositionList().get(getObsCompositionList().size()-1).getId()+1;
-	}*/
 	/*public String toString() {
 		String composerOutput;
 		String titleOutput;
@@ -174,10 +159,6 @@ public class Composition implements Serializable{
 	    		 Composer.addToComposerList(compositionList.get(i).getComposer());
 	    		 obsCompositionList.add(compositionList.get(i));
 	    	 }
-	    	 //Composer.setNextId();
-	    	 //System.out.println("Set next ID for Composer: " + Composer.getNextId());
-	    	 //setNextId();
-	    	 //System.out.println("Set next ID for Composition: " + getNextId());
 	      }catch (FileNotFoundException f) {
 	    	  System.out.println("File not found");
 	    	 return;
@@ -185,7 +166,7 @@ public class Composition implements Serializable{
 	         System.out.println("IOException");
 	    	 return;
 	      }catch (ClassNotFoundException c) {
-	    	 System.out.println("Composer class not found");
+	    	 System.out.println("Composition class not found");
 	         c.printStackTrace();
 	         return;
 	      }

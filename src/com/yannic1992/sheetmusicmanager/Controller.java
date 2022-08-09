@@ -57,8 +57,6 @@ public class Controller implements Initializable {
 	@FXML
 	private TableColumn<Composition, String> compTableFormat = new TableColumn<Composition, String>();
 	
-	/*private ObservableList<String> obsComposerList = FXCollections.observableArrayList();
-	private SortedList<String> sortedComposerList;*/
 	// Auxiliary variable
 	private int selectedComposerIdInComposerList;
 	private int selectedCompositionIdInCompositionTable;
@@ -181,7 +179,6 @@ public class Controller implements Initializable {
 	}
 	public void refreshComposerListView() {
 		Collections.sort(Composer.getComposerList(), Composer.compListSortByName);
-		//composerListView.setItems(sortedComposerList.sorted());
 		String[] tempComposerList = new String[Composer.getComposerList().size()];
 		for(int i = 0; i<Composer.getComposerList().size(); i++) {
 			tempComposerList[i] = Composer.getComposerList().get(i).getComposerNameWithYears();
@@ -194,12 +191,7 @@ public class Controller implements Initializable {
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		/*for(int i = 0; i<Composer.getComposerList().size(); i++) {
-			obsComposerList.add(Composer.getComposerList().get(i).getComposerNameWithYears());
-		}
-		sortedComposerList = new SortedList<String>(obsComposerList);*/
 		refreshComposerListView();
-		
 		compTableLastName.setCellValueFactory(new PropertyValueFactory<Composition, String>("lastName"));
 		compTableFirstName.setCellValueFactory(new PropertyValueFactory<Composition, String>("firstName"));
 		compTableSecondName.setCellValueFactory(new PropertyValueFactory<Composition, String>("secondName"));
@@ -212,11 +204,7 @@ public class Controller implements Initializable {
 			@Override
 			public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
 				
-				/*String selectedComposerInListView = composerListView.getSelectionModel().getSelectedItem();
-				System.out.println(selectedComposerInListView);*/
-				
 				int selectedComposerIndexInList = composerListView.getSelectionModel().getSelectedIndex();
-				//System.out.println(obsComposerList.get(selectedComposerIndexInList));
 				if (selectedComposerIndexInList != -1) {
 					clearTextFields();
 					firstName.setText(Composer.getComposerList().get(selectedComposerIndexInList).getFirstName());
@@ -225,7 +213,6 @@ public class Controller implements Initializable {
 					birthYear.setText(Composer.getComposerList().get(selectedComposerIndexInList).getBirthYear());
 					deathYear.setText(Composer.getComposerList().get(selectedComposerIndexInList).getDeathYear());
 					selectedComposerIdInComposerList = Composer.getComposerList().get(selectedComposerIndexInList).getId();
-					//System.out.println(selectedComposerIdInComposerList);
 				}	
 			}
 		});

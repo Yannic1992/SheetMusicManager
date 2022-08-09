@@ -13,8 +13,6 @@ public class Composer implements Serializable {
 	private String birthYear;
 	private String deathYear;
 	private int id;
-	//private static int nextId = 1;
-	//private static int count=0;
 	//private static String tempComposerFullName;
 	
 	private static ArrayList<Composer> composerList = new ArrayList<>();
@@ -74,18 +72,6 @@ public class Composer implements Serializable {
 	public String getComposerNameWithYears() {
 		return getFullName() + " (" + this.birthYear + "-" + this.deathYear + ")" + ": " + this.id;
 	}
-	/*public static int getNextId() {
-		return nextId;
-	}
-	public static void setNextId() {
-		int maxId = 0;
-		for(int i =0; i<composerList.size(); i++) {
-			if(composerList.get(i).getId() > maxId) {
-				maxId = composerList.get(i).getId();
-			}
-		}
-		nextId = maxId+1;
-	}*/
 	public int getId() {
 		return this.id;
 	}
@@ -102,15 +88,6 @@ public class Composer implements Serializable {
 			this.id = maxId+1;
 		}
 	}
-	/*public static int getCount() {
-		return count;
-	}
-	public static void setCount(int i) {
-		count = i;
-	}
-	public static void startProgramNextId() {
-		
-	}*/
 	public static ArrayList<Composer> getComposerList() {
 		return composerList;
 	}
@@ -127,14 +104,12 @@ public class Composer implements Serializable {
 		return null;
 	}
 	public static void addToComposerList(Composer composer) {
-		//composer.setId();
 		if(checkComposerList(composer) != null) {
 			System.out.println("Composer already in list");
 		}else {
 			Composer.getComposerList().add(composer);
 			System.out.println("Composer ID: "+ composer.getId());
 		}
-		//setNextId();
 	}
 	public static Comparator<Composer> compListSortByName = new Comparator<Composer>() {
 		@Override
