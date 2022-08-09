@@ -72,7 +72,7 @@ public class Composer implements Serializable {
 		this.deathYear = deathYear;
 	}
 	public String getComposerNameWithYears() {
-		return getFullName() + " (" + birthYear + "-" + deathYear + ")" + ": " + id;
+		return getFullName() + " (" + this.birthYear + "-" + this.deathYear + ")" + ": " + this.id;
 	}
 	/*public static int getNextId() {
 		return nextId;
@@ -127,11 +127,12 @@ public class Composer implements Serializable {
 		return null;
 	}
 	public static void addToComposerList(Composer composer) {
-		composer.setId();
+		//composer.setId();
 		if(checkComposerList(composer) != null) {
 			System.out.println("Composer already in list");
 		}else {
 			Composer.getComposerList().add(composer);
+			System.out.println("Composer ID: "+ composer.getId());
 		}
 		//setNextId();
 	}

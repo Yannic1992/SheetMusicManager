@@ -72,6 +72,7 @@ public class Controller implements Initializable {
 		Composer tempComposer = Composer.checkComposerList(composer);
 		
 		if(tempComposer == null) { //When true, then composer not in composer list
+			composer.setId();
 			composition.setComposer(composer);
 			Composer.addToComposerList(composer);
 		} else {
@@ -132,6 +133,35 @@ public class Controller implements Initializable {
 			Composition.writeIntoFile(Composition.getObsCompositionList());
 		}
 	}
+	
+	@SuppressWarnings("exports")
+	public void delete(ActionEvent e) {
+		if(titleOfComposition.getText() == "") {
+			for(int i = 0; i<=Composer.getComposerList().size(); i++) {
+				if(Composer.getComposerList().get(i).getId() == selectedComposerIdInComposerList) {
+					selectedComposerIdInComposerList = i;
+					break;
+				}
+			}
+			Composer.getComposerList().remove(selectedComposerIdInComposerList);
+			refreshComposerListView();
+			compositionTable.getItems().clear();
+			compositionTable.getItems().addAll(Composition.getObsCompositionList());
+			Composition.writeIntoFile(Composition.getObsCompositionList());
+		} else {
+			for(int i = 0; i<=Composition.getObsCompositionList().size(); i++) {
+				if(Composition.getObsCompositionList().get(i).getId() == selectedCompositionIdInCompositionTable) {
+					selectedCompositionIdInCompositionTable = i;
+					break;
+				}
+			}
+			Composition.getObsCompositionList().remove(selectedCompositionIdInCompositionTable);
+			refreshComposerListView();
+			compositionTable.getItems().clear();
+			compositionTable.getItems().addAll(Composition.getObsCompositionList());
+			Composition.writeIntoFile(Composition.getObsCompositionList());
+		}
+	}
 	/*public static String compositionListToString() {
 		String output = "";
 		for(int i = 0; i<Composition.getCompositionList().size(); i++) {
@@ -156,7 +186,6 @@ public class Controller implements Initializable {
 		for(int i = 0; i<Composer.getComposerList().size(); i++) {
 			tempComposerList[i] = Composer.getComposerList().get(i).getComposerNameWithYears();
 		}
-		
 		composerListView.getItems().clear();
 		composerListView.getItems().addAll(tempComposerList);
 		System.out.println("Refreshed composer list");
