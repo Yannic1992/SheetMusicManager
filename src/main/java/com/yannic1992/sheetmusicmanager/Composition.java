@@ -1,14 +1,13 @@
 package com.yannic1992.sheetmusicmanager;
 
-import java.io.*;
-import java.util.ArrayList;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.io.*;
+import java.util.ArrayList;
+
 public class Composition implements Serializable{
-	
-	@Serial
+
 	private static final long serialVersionUID = 1L;
 	private Composer composer;
 	private String title;
