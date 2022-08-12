@@ -117,9 +117,7 @@ public class Composition implements Serializable{
 	public static ObservableList<Composition> getObsCompositionList() {
 		return obsCompositionList;
 	}
-	public static void setObsCompositionList(ObservableList<Composition> c) {
-		obsCompositionList = c;
-	}
+
 	public static void addToObsCompositionList(Composition composition) {
 		composition.setId();
 		Composition.getObsCompositionList().add(composition);

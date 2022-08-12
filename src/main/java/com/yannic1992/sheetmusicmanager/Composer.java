@@ -1,11 +1,13 @@
 package com.yannic1992.sheetmusicmanager;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 
 public class Composer implements Serializable {
 	
+	@Serial
 	private static final long serialVersionUID = 1L;
 	private String firstName;
 	private String secondName;
@@ -80,9 +82,9 @@ public class Composer implements Serializable {
 			this.id = 1;
 		} else {
 			int maxId = 0;
-			for(int i =0; i<composerList.size(); i++) {
-				if(composerList.get(i).getId() > maxId) {
-					maxId = composerList.get(i).getId();
+			for (Composer composer : composerList) {
+				if (composer.getId() > maxId) {
+					maxId = composer.getId();
 				}
 			}
 			this.id = maxId+1;
@@ -91,9 +93,7 @@ public class Composer implements Serializable {
 	public static ArrayList<Composer> getComposerList() {
 		return composerList;
 	}
-	public static void setComposerList(ArrayList<Composer> c) {
-		composerList = c;
-	}
+
 	public static Composer checkComposerList(Composer composer) {
 		String tempComposerFullName = composer.getFullName();
 		for(Composer element : getComposerList()) {
@@ -111,7 +111,7 @@ public class Composer implements Serializable {
 			//System.out.println("Composer ID: "+ composer.getId());
 		}
 	}
-	public static Comparator<Composer> compListSortByName = new Comparator<Composer>() {
+	public static Comparator<Composer> compListSortByName = new Comparator<>() {
 		@Override
 		public int compare(Composer o1, Composer o2) {
 			String compName1 = o1.getFullName().toUpperCase();

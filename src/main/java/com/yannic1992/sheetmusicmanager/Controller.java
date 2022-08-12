@@ -1,21 +1,16 @@
 package com.yannic1992.sheetmusicmanager;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.Collections;
-import java.util.ResourceBundle;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import java.net.URL;
+import java.util.Collections;
+import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
 	@FXML
@@ -43,26 +38,26 @@ public class Controller implements Initializable {
 	@FXML
 	private ListView<String> composerListView;
 	@FXML
-	private TableView<Composition> compositionTable = new TableView<Composition>();
+	private TableView<Composition> compositionTable = new TableView<>();
 	@FXML
-	private TableColumn<Composition, String> compTableLastName = new TableColumn<Composition, String>();
+	private TableColumn<Composition, String> compTableLastName = new TableColumn<>();
 	@FXML
-	private TableColumn<Composition, String> compTableFirstName= new TableColumn<Composition, String>();
+	private TableColumn<Composition, String> compTableFirstName= new TableColumn<>();
 	@FXML
-	private TableColumn<Composition, String> compTableSecondName = new TableColumn<Composition, String>();
+	private TableColumn<Composition, String> compTableSecondName = new TableColumn<>();
 	@FXML
-	private TableColumn<Composition, String> compTableTitle = new TableColumn<Composition, String>();
+	private TableColumn<Composition, String> compTableTitle = new TableColumn<>();
 	@FXML
-	private TableColumn<Composition, String> compTableYear = new TableColumn<Composition, String>();
+	private TableColumn<Composition, String> compTableYear = new TableColumn<>();
 	@FXML
-	private TableColumn<Composition, String> compTableFormat = new TableColumn<Composition, String>();
+	private TableColumn<Composition, String> compTableFormat = new TableColumn<>();
 	
 	// Auxiliary variable
 	private int selectedComposerIdInComposerList;
 	private int selectedCompositionIdInCompositionTable;
 	
 	@SuppressWarnings("exports")
-	public void add(ActionEvent e) throws IOException {
+	public void add(ActionEvent e) {
 		Composer composer = new Composer(firstName.getText(), secondName.getText(), lastName.getText(), 
 							birthYear.getText(), deathYear.getText());
 		Composition composition = new Composition(titleOfComposition.getText(), 
@@ -192,18 +187,18 @@ public class Controller implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		refreshComposerListView();
-		compTableLastName.setCellValueFactory(new PropertyValueFactory<Composition, String>("lastName"));
-		compTableFirstName.setCellValueFactory(new PropertyValueFactory<Composition, String>("firstName"));
-		compTableSecondName.setCellValueFactory(new PropertyValueFactory<Composition, String>("secondName"));
-		compTableTitle.setCellValueFactory(new PropertyValueFactory<Composition, String>("title"));
-		compTableYear.setCellValueFactory(new PropertyValueFactory<Composition, String>("year"));
-		compTableFormat.setCellValueFactory(new PropertyValueFactory<Composition, String>("dataFormat"));
+		compTableLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+		compTableFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+		compTableSecondName.setCellValueFactory(new PropertyValueFactory<>("secondName"));
+		compTableTitle.setCellValueFactory(new PropertyValueFactory<>("title"));
+		compTableYear.setCellValueFactory(new PropertyValueFactory<>("year"));
+		compTableFormat.setCellValueFactory(new PropertyValueFactory<>("dataFormat"));
 		compositionTable.getItems().addAll(Composition.getObsCompositionList());
 		compositionCount.setText("Anzahl: " + Composition.getObsCompositionList().size());
-		composerListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+		composerListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
 			@Override
 			public void changed(ObservableValue<? extends String> arg0, String arg1, String arg2) {
-				
+
 				int selectedComposerIndexInList = composerListView.getSelectionModel().getSelectedIndex();
 				if (selectedComposerIndexInList != -1) {
 					clearTextFields();
@@ -213,10 +208,10 @@ public class Controller implements Initializable {
 					birthYear.setText(Composer.getComposerList().get(selectedComposerIndexInList).getBirthYear());
 					deathYear.setText(Composer.getComposerList().get(selectedComposerIndexInList).getDeathYear());
 					selectedComposerIdInComposerList = Composer.getComposerList().get(selectedComposerIndexInList).getId();
-				}	
+				}
 			}
 		});
-		compositionTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Composition>() {
+		compositionTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
 			@Override
 			public void changed(ObservableValue<? extends Composition> arg0, Composition arg1, Composition arg2) {
 				int selectedCompositionInTableView = compositionTable.getSelectionModel().getSelectedIndex();
