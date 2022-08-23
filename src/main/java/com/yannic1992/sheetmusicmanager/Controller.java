@@ -11,6 +11,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.net.URL;
 import java.util.Collections;
 import java.util.ResourceBundle;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Controller implements Initializable {
 	@FXML
@@ -58,26 +60,36 @@ public class Controller implements Initializable {
 	
 	@SuppressWarnings("exports")
 	public void add(ActionEvent e) {
-		Composer composer = new Composer(firstName.getText(), secondName.getText(), lastName.getText(), 
-							birthYear.getText(), deathYear.getText());
-		Composition composition = new Composition(titleOfComposition.getText(), 
-								yearOfComposition.getText(), dataFormatOfComposition.getText());
-		Composer tempComposer = Composer.checkComposerList(composer);
-		
-		if(tempComposer == null) { //When true, then composer not in composer list
-			composer.setId();
-			composition.setComposer(composer);
-			Composer.addToComposerList(composer);
+		Pattern year = Pattern.compile("\\d{4}");
+		Matcher m1 = year.matcher(birthYear.getText());
+		Matcher m2 = year.matcher(deathYear.getText());
+		Matcher m3 = year.matcher(yearOfComposition.getText());
+		if (m1.matches() || birthYear.getText().equals("") &&
+				m2.matches() || deathYear.getText().equals("") &&
+				m3.matches() || yearOfComposition.getText().equals("")) {
+			Composer composer = new Composer(firstName.getText(), secondName.getText(), lastName.getText(),
+					birthYear.getText(), deathYear.getText());
+			Composition composition = new Composition(titleOfComposition.getText(),
+					yearOfComposition.getText(), dataFormatOfComposition.getText());
+			Composer tempComposer = Composer.checkComposerList(composer);
+
+			if(tempComposer == null) { //When true, then composer not in composer list
+				composer.setId();
+				composition.setComposer(composer);
+				Composer.addToComposerList(composer);
+			} else {
+				composition.setComposer(tempComposer);
+			}
+			refreshComposerListView();
+			Composition.addToObsCompositionList(composition);
+			clearTextFields();
+			firstName.requestFocus();
+			Composition.writeIntoFile(Composition.getObsCompositionList());
+			compositionTable.getItems().add(Composition.getObsCompositionList().get(Composition.getObsCompositionList().size()-1));
+			compositionCount.setText("Anzahl: " + Composition.getObsCompositionList().size());
 		} else {
-			composition.setComposer(tempComposer);
+
 		}
-		refreshComposerListView();
-		Composition.addToObsCompositionList(composition);
-		clearTextFields();
-		firstName.requestFocus();		
-		Composition.writeIntoFile(Composition.getObsCompositionList());
-		compositionTable.getItems().add(Composition.getObsCompositionList().get(Composition.getObsCompositionList().size()-1));
-		compositionCount.setText("Anzahl: " + Composition.getObsCompositionList().size());
 	}
 	@SuppressWarnings("exports")
 	public void edit(ActionEvent e) {

@@ -42,8 +42,8 @@
           <TableColumn fx:id="compTableFirstName" prefWidth="75.0" text="Vorname" />
           <TableColumn fx:id="compTableSecondName" prefWidth="75.0" text="Zweitname" />
           <TableColumn fx:id="compTableTitle" prefWidth="70.0" text="Titel" />
-          <TableColumn fx:id="compTableYear" prefWidth="43.0" text="Jahr" />
-          <TableColumn fx:id="compTableFormat" prefWidth="77.0" text="Dateiformat" />
+          <TableColumn fx:id="compTableYear" prefWidth="45.0" text="Jahr" />
+          <TableColumn fx:id="compTableFormat" prefWidth="73.0" text="Dateiformat" />
         </columns>
       </TableView>
    </children>
